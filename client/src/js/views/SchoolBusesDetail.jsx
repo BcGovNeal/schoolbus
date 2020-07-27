@@ -370,7 +370,7 @@ class SchoolBusesDetail extends React.Component {
         <div>
           <Row id="school-buses-top">
             <Col md={10}>
-              <Badge bsStyle={bus.isActive ? 'success' : 'danger'}>
+              <Badge variant={bus.isActive ? 'success' : 'danger'}>
                 {bus.isActive ? 'Verified Active' : bus.status}
               </Badge>
               <Badge className={bus.isOutOfProvince ? '' : 'hide'}>Out of Province</Badge>
@@ -599,7 +599,7 @@ class SchoolBusesDetail extends React.Component {
                   );
 
                   if (Object.keys(this.props.schoolBusInspections).length === 0) {
-                    return <Alert bsStyle="success">No inspections {addInspectionButton}</Alert>;
+                    return <Alert variant="success">No inspections {addInspectionButton}</Alert>;
                   }
 
                   var inspections = _.sortBy(this.props.schoolBusInspections, this.state.ui.sortField);
@@ -634,7 +634,7 @@ class SchoolBusesDetail extends React.Component {
                             <td>{formatDateTime(inspection.inspectionDate, Constant.DATE_SHORT_MONTH_DAY_YEAR)}</td>
                             <td>
                               {inspection.inspectionTypeCode}
-                              {inspection.isReinspection ? <BadgeLabel bsStyle="info">R</BadgeLabel> : null}
+                              {inspection.isReinspection ? <BadgeLabel variant="info">R</BadgeLabel> : null}
                             </td>
                             <td>{inspection.inspectionResultCode}</td>
                             <td>{inspection.inspectorName}</td>

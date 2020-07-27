@@ -106,7 +106,7 @@ class TopNav extends React.Component {
               <Button
                 id="error-indicator"
                 className={requestError.message ? '' : 'hide'}
-                bsStyle="danger"
+                variant="danger"
                 bsSize="xsmall"
               >
                 Error

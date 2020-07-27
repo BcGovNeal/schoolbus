@@ -171,7 +171,7 @@ class UsersDetail extends React.Component {
         <div>
           <Row id="users-top">
             <Col md={10}>
-              <Badge bsStyle={user.active ? 'success' : 'danger'}>{user.active ? 'Verified Active' : 'Inactive'}</Badge>
+              <Badge variant={user.active ? 'success' : 'danger'}>{user.active ? 'Verified Active' : 'Inactive'}</Badge>
             </Col>
             <Col md={2}>
               <div className="pull-right">
@@ -298,7 +298,7 @@ class UsersDetail extends React.Component {
                     return include;
                   });
                   if (userRoles.length === 0) {
-                    return <Alert bsStyle="success">No roles {addUserRoleButton}</Alert>;
+                    return <Alert variant="success">No roles {addUserRoleButton}</Alert>;
                   }
 
                   userRoles = _.sortBy(userRoles, this.state.ui.sortField);
@@ -426,7 +426,7 @@ class ExpireOverlay extends React.Component {
             />
             <Form.Text>{this.state.expiryDateError}</Form.Text>
           </FormGroup>
-          <Button bsStyle="primary" onClick={this.saveUserRole} className="pull-right">
+          <Button variant="primary" onClick={this.saveUserRole} className="pull-right">
             Save
           </Button>
         </Form>

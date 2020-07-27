@@ -239,7 +239,7 @@ class Owners extends React.Component {
                   >
                     Hide Inactive
                   </CheckboxControl>
-                  <Button id="search-button" bsStyle="primary" onClick={this.fetch}>
+                  <Button id="search-button" variant="primary" onClick={this.fetch}>
                     Search
                   </Button>
                 </ButtonToolbar>
@@ -275,7 +275,7 @@ class Owners extends React.Component {
               </Button>
             );
             if (Object.keys(this.props.ownerList).length === 0) {
-              return <Alert bsStyle="success">No owners {addOwnerButton}</Alert>;
+              return <Alert variant="success">No owners {addOwnerButton}</Alert>;
             }
 
             var ownerList = _.sortBy(this.props.ownerList, this.state.ui.sortField);
@@ -317,8 +317,8 @@ class Owners extends React.Component {
                       </td>
                       <td>
                         {formatDateTime(owner.nextInspectionDate, Constant.DATE_SHORT_MONTH_DAY_YEAR)}
-                        {owner.isReinspection ? <BadgeLabel bsStyle="info">R</BadgeLabel> : null}
-                        {owner.isOverdue ? <BadgeLabel bsStyle="danger">!</BadgeLabel> : null}
+                        {owner.isReinspection ? <BadgeLabel variant="info">R</BadgeLabel> : null}
+                        {owner.isOverdue ? <BadgeLabel variant="danger">!</BadgeLabel> : null}
                       </td>
                       <td style={{ textAlign: 'right' }}>
                         <ButtonGroup>

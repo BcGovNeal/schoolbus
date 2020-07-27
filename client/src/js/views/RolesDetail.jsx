@@ -331,7 +331,7 @@ class RolesDetail extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Button bsStyle="primary" onClick={this.onSave}>
+          <Button variant="primary" onClick={this.onSave}>
             Save
           </Button>
         </Row>

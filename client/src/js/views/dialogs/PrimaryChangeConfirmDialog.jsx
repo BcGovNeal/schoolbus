@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Button, Form, Row, Col } from "react-bootstrap";
-import ModalDialog from "../../components/ModalDialog.jsx";
+import { Button, Form, Row, Col } from 'react-bootstrap';
+import ModalDialog from '../../components/ModalDialog.jsx';
 
 class PrimaryChangeConfirmDialog extends React.Component {
   static propTypes = {
@@ -45,7 +45,7 @@ class PrimaryChangeConfirmDialog extends React.Component {
         })()}
         footer={
           <span>
-            <Button title="yes" bsStyle="primary" onClick={this.onConfirm}>
+            <Button title="yes" variant="primary" onClick={this.onConfirm}>
               Yes
             </Button>
             <Button title="no" onClick={this.onReject}>
@@ -61,27 +61,16 @@ class PrimaryChangeConfirmDialog extends React.Component {
                 if (isPrimary && !checkboxValue) {
                   return (
                     <div>
-                      <h4>
-                        This action will leave the school bus owner without a
-                        primary contact.
-                      </h4>
-                      <h4>
-                        Are you sure you wish to deselect a primary contact from
-                        the school bus owner?
-                      </h4>
+                      <h4>This action will leave the school bus owner without a primary contact.</h4>
+                      <h4>Are you sure you wish to deselect a primary contact from the school bus owner?</h4>
                     </div>
                   );
                 }
                 if (!isPrimary && checkboxValue && hasPrimary) {
                   return (
                     <div>
-                      <h4>
-                        A school bus owner can have only one primary contact.
-                      </h4>
-                      <h4>
-                        Do you want to change the school bus owner's primary
-                        contact to the current contact?
-                      </h4>
+                      <h4>A school bus owner can have only one primary contact.</h4>
+                      <h4>Do you want to change the school bus owner's primary contact to the current contact?</h4>
                     </div>
                   );
                 }

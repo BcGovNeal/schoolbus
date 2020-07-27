@@ -144,7 +144,7 @@ class Roles extends React.Component {
               </LinkContainer>
             );
             if (Object.keys(this.props.roles).length === 0) {
-              return <Alert bsStyle="success">No roles {addRoleButton}</Alert>;
+              return <Alert variant="success">No roles {addRoleButton}</Alert>;
             }
 
             var roles = _.sortBy(

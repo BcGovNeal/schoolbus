@@ -544,7 +544,7 @@ class SchoolBuses extends React.Component {
                 />
               </Row>
               <Row id="school-buses-search">
-                <Button id="search-button" bsStyle="primary" onClick={this.fetch}>
+                <Button id="search-button" variant="primary" onClick={this.fetch}>
                   Search
                 </Button>
               </Row>
@@ -696,7 +696,7 @@ class SchoolBuses extends React.Component {
             );
           }
           if (Object.keys(this.props.schoolBuses).length === 0) {
-            return <Alert bsStyle="success">No school buses</Alert>;
+            return <Alert variant="success">No school buses</Alert>;
           }
 
           var schoolBuses = _.sortBy(this.props.schoolBuses, this.state.ui.sortField);
@@ -739,8 +739,8 @@ class SchoolBuses extends React.Component {
                         {formatDateTime(bus.nextInspectionDate, Constant.DATE_SHORT_MONTH_DAY_YEAR)}
                       </span>
                       <span id="tdBadgeLabels">
-                        {bus.isReinspection ? <BadgeLabel bsStyle="info">R</BadgeLabel> : null}
-                        {bus.isOverdue ? <BadgeLabel bsStyle="danger">!</BadgeLabel> : null}
+                        {bus.isReinspection ? <BadgeLabel variant="info">R</BadgeLabel> : null}
+                        {bus.isOverdue ? <BadgeLabel variant="danger">!</BadgeLabel> : null}
                       </span>
                     </td>
                     <td>{bus.inspectorName}</td>

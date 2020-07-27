@@ -140,7 +140,7 @@ class SchoolBusAddDialog extends React.Component {
                     <Button id="close-button" onClick={this.props.onClose}>
                       Close
                     </Button>
-                    <Button id="search-button" bsStyle="primary" onClick={this.fetch}>
+                    <Button id="search-button" variant="primary" onClick={this.fetch}>
                       Search
                     </Button>
                   </ButtonGroup>

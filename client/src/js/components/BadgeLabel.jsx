@@ -5,7 +5,7 @@ import { Badge } from 'react-bootstrap';
 class BadgeLabel extends React.Component {
   static propTypes = {
     bsClass: PropTypes.string,
-    bsStyle: PropTypes.string,
+    variant: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.node,
   };
@@ -14,7 +14,7 @@ class BadgeLabel extends React.Component {
     return (
       <Badge
         bsClass={this.props.bsClass}
-        bsStyle={this.props.bsStyle}
+        variant={this.props.variant}
         className={`badge-label ${this.props.className || ''}`}
       >
         {this.props.children}

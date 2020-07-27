@@ -186,7 +186,7 @@ class UserManagement extends React.Component {
                   >
                     Hide Inactive
                   </CheckboxControl>
-                  <Button id="search-button" bsStyle="primary" onClick={this.fetch}>
+                  <Button id="search-button" variant="primary" onClick={this.fetch}>
                     Search
                   </Button>
                 </ButtonToolbar>
@@ -224,7 +224,7 @@ class UserManagement extends React.Component {
               </LinkContainer>
             );
             if (Object.keys(this.props.users).length === 0) {
-              return <Alert bsStyle="success">No users {addUserButton}</Alert>;
+              return <Alert variant="success">No users {addUserButton}</Alert>;
             }
 
             var users = _.sortBy(this.props.users, this.state.ui.sortField);

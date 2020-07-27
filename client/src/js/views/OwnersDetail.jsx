@@ -296,7 +296,7 @@ class OwnersDetail extends React.Component {
         <div>
           <Row id="owners-top">
             <Col md={10}>
-              <Badge bsStyle={owner.isActive ? 'success' : 'danger'}>
+              <Badge variant={owner.isActive ? 'success' : 'danger'}>
                 {owner.isActive ? 'Verified Active' : owner.status}
               </Badge>
               {owner.nextInspectionDate && (
@@ -384,8 +384,8 @@ class OwnersDetail extends React.Component {
                       <Row>
                         <ColDisplay md={12} label="Next Inspection">
                           {formatDateTime(owner.nextInspectionDate, Constant.DATE_SHORT_MONTH_DAY_YEAR)}
-                          {owner.isReinspection ? <BadgeLabel bsStyle="info">R</BadgeLabel> : null}
-                          {owner.isOverdue ? <BadgeLabel bsStyle="danger">!</BadgeLabel> : null}
+                          {owner.isReinspection ? <BadgeLabel variant="info">R</BadgeLabel> : null}
+                          {owner.isOverdue ? <BadgeLabel variant="danger">!</BadgeLabel> : null}
                         </ColDisplay>
                       </Row>
                       <Row>
@@ -411,7 +411,7 @@ class OwnersDetail extends React.Component {
                   }
                   if (!owner.notes || owner.notes.length === 0) {
                     return (
-                      <Alert bsStyle="success" style={{ marginTop: 10 }}>
+                      <Alert variant="success" style={{ marginTop: 10 }}>
                         No comments
                       </Alert>
                     );
@@ -442,7 +442,7 @@ class OwnersDetail extends React.Component {
                   var primary = <Badge style={{ backgroundColor: '#5cb85c', marginLeft: '10px' }}>Primary</Badge>;
 
                   if (this.props.ownerContacts === null || Object.keys(this.props.ownerContacts).length === 0) {
-                    return <Alert bsStyle="success">No contacts {addContactButton}</Alert>;
+                    return <Alert variant="success">No contacts {addContactButton}</Alert>;
                   }
 
                   var contacts = _.sortBy(this.props.ownerContacts, this.state.ui.sortField);

@@ -2,26 +2,26 @@
 // This would allow an admin to view history by user, etc. Also, it would eliminate the
 // convoluted way we get to linked content.
 
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
-import * as Action from "../../actionTypes";
-import * as Api from "../../api";
-import * as Constant from "../../constants";
-import * as History from "../../history";
-import store from "../../store";
+import * as Action from '../../actionTypes';
+import * as Api from '../../api';
+import * as Constant from '../../constants';
+import * as History from '../../history';
+import store from '../../store';
 
-import ModalDialog from "../../components/ModalDialog.jsx";
-import SortTable from "../../components/SortTable.jsx";
-import Spinner from "../../components/Spinner.jsx";
+import ModalDialog from '../../components/ModalDialog.jsx';
+import SortTable from '../../components/SortTable.jsx';
+import Spinner from '../../components/Spinner.jsx';
 
-import { formatDateTime } from "../../utils/date";
+import { formatDateTime } from '../../utils/date';
 
 // API limit: how many to fetch first time
 const API_LIMIT = 10;
@@ -43,7 +43,7 @@ class HistoryListDialog extends React.Component {
     canShowMore: false,
 
     ui: {
-      sortField: this.props.ui.sortField || "timestampSort",
+      sortField: this.props.ui.sortField || 'timestampSort',
       sortDesc: this.props.ui.sortDesc !== false,
     },
   };
@@ -79,14 +79,8 @@ class HistoryListDialog extends React.Component {
       .then(() => {
         var history = _.map(this.props.history, (history) => {
           history.userName = this.getUserName(history.lastUpdateUserid);
-          history.formattedTimestamp = formatDateTime(
-            history.lastUpdateTimestamp,
-            Constant.DATE_TIME_LOG
-          );
-          history.event = History.renderEvent(
-            history.historyText,
-            this.props.onClose
-          );
+          history.formattedTimestamp = formatDateTime(history.lastUpdateTimestamp, Constant.DATE_TIME_LOG);
+          history.event = History.renderEvent(history.historyText, this.props.onClose);
           return history;
         });
         this.setState({
@@ -96,8 +90,7 @@ class HistoryListDialog extends React.Component {
       .finally(() => {
         this.setState({
           loading: false,
-          canShowMore:
-            first && Object.keys(this.props.history).length >= API_LIMIT,
+          canShowMore: first && Object.keys(this.props.history).length >= API_LIMIT,
         });
       });
   };
@@ -123,8 +116,7 @@ class HistoryListDialog extends React.Component {
         onClose={this.props.onClose}
         title={
           <strong>
-            History for {this.props.historyEntity.type}{" "}
-            {this.props.historyEntity.description}
+            History for {this.props.historyEntity.type} {this.props.historyEntity.description}
           </strong>
         }
         footer={
@@ -132,11 +124,7 @@ class HistoryListDialog extends React.Component {
             <Button title="Close" onClick={this.props.onClose}>
               Close
             </Button>
-            <Button
-              title="Show More"
-              onClick={this.showMore}
-              disabled={!this.state.canShowMore}
-            >
+            <Button title="Show More" onClick={this.showMore} disabled={!this.state.canShowMore}>
               Show More
             </Button>
           </span>
@@ -148,28 +136,25 @@ class HistoryListDialog extends React.Component {
               {(() => {
                 if (this.state.loading) {
                   return (
-                    <div style={{ textAlign: "center" }}>
+                    <div style={{ textAlign: 'center' }}>
                       <Spinner />
                     </div>
                   );
                 }
 
                 if (Object.keys(this.props.history).length === 0) {
-                  return <Alert bsStyle="success">No history</Alert>;
+                  return <Alert variant="success">No history</Alert>;
                 }
 
-                var history = _.sortBy(
-                  this.props.history,
-                  this.state.ui.sortField
-                );
+                var history = _.sortBy(this.props.history, this.state.ui.sortField);
                 if (this.state.ui.sortDesc) {
                   _.reverse(history);
                 }
 
                 var headers = [
-                  { field: "timestampSort", title: "Timestamp" },
-                  { field: "userName", title: "User" },
-                  { field: "event", noSort: true, title: "Event" },
+                  { field: 'timestampSort', title: 'Timestamp' },
+                  { field: 'userName', title: 'User' },
+                  { field: 'event', noSort: true, title: 'Event' },
                 ];
 
                 return (

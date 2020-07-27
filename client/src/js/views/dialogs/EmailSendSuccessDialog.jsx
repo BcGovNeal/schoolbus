@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Button, Form, Row, Col } from "react-bootstrap";
-import ModalDialog from "../../components/ModalDialog.jsx";
+import { Button, Form, Row, Col } from 'react-bootstrap';
+import ModalDialog from '../../components/ModalDialog.jsx';
 
 class EmailSendSuccessDialog extends React.Component {
   static propTypes = {
@@ -25,7 +25,7 @@ class EmailSendSuccessDialog extends React.Component {
         title={<strong>Message</strong>}
         footer={
           <span>
-            <Button title="ok" bsStyle="primary" onClick={this.onConfirm}>
+            <Button title="ok" variant="primary" onClick={this.onConfirm}>
               Ok
             </Button>
           </span>

@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Button } from "react-bootstrap";
+import { Button } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
-import ModalDialog from "./ModalDialog.jsx";
+import ModalDialog from './ModalDialog.jsx';
 
 class EditDialog extends React.Component {
   static propTypes = {
@@ -35,28 +35,26 @@ class EditDialog extends React.Component {
   render() {
     var props = _.omit(
       this.props,
-      "className",
-      "onSave",
-      "didChange",
-      "isValid",
-      "updateState",
-      "saveText",
-      "closeText"
+      'className',
+      'onSave',
+      'didChange',
+      'isValid',
+      'updateState',
+      'saveText',
+      'closeText'
     );
 
     return (
       <ModalDialog
         backdrop="static"
-        className={`edit-dialog ${this.props.className || ""}`}
+        className={`edit-dialog ${this.props.className || ''}`}
         {...props}
         footer={
           <span>
-            <Button onClick={this.props.onClose}>
-              {this.props.closeText || "Close"}
-            </Button>
+            <Button onClick={this.props.onClose}>{this.props.closeText || 'Close'}</Button>
             {this.props.readOnly || (
-              <Button bsStyle="primary" onClick={this.save}>
-                {this.props.saveText || "Save"}
+              <Button variant="primary" onClick={this.save}>
+                {this.props.saveText || 'Save'}
               </Button>
             )}
           </span>
