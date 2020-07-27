@@ -169,7 +169,12 @@ class MultiDropdown extends React.Component {
                 this.input = ref;
               }}
             />
-            <Form.Check className="select-all" checked={this.state.allSelected} onChange={this.selectAll}>
+            <Form.Check
+              className="select-all"
+              type="checkbox"
+              checked={this.state.allSelected}
+              onChange={this.selectAll}
+            >
               Select All
             </Form.Check>
           </Well>
@@ -179,6 +184,7 @@ class MultiDropdown extends React.Component {
                 return (
                   <li key={item.id}>
                     <Form.Check
+                      type="checkbox"
                       value={item.id}
                       checked={this.state.selectedIds.includes(item.id)}
                       onChange={this.itemSelected}

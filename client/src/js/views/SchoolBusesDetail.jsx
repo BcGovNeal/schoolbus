@@ -555,7 +555,7 @@ class SchoolBusesDetail extends React.Component {
                       </Row>
                       <Row>
                         <ColDisplay md={4} label="Independent School">
-                          <Form.Check defaultChecked={bus.isIndependentSchool} disabled></Form.Check>
+                          <Form.Check type="checkbox" defaultChecked={bus.isIndependentSchool} disabled></Form.Check>
                         </ColDisplay>
                         <ColDisplay md={8}>{bus.independentSchoolName}</ColDisplay>
                       </Row>

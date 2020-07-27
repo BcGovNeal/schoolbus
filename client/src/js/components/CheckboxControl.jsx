@@ -30,7 +30,7 @@ class CheckboxControl extends React.Component {
     var props = _.omit(this.props, 'updateState');
 
     return (
-      <Form.Check className="checkbox-control" {...props} onChange={this.changed}>
+      <Form.Check className="checkbox-control" type="checkbox" {...props} onChange={this.changed}>
         {this.props.children}
       </Form.Check>
     );
