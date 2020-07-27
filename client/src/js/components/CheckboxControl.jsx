@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Checkbox } from "react-bootstrap";
+import { Form } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
 class CheckboxControl extends React.Component {
   static propTypes = {
@@ -27,12 +27,12 @@ class CheckboxControl extends React.Component {
   };
 
   render() {
-    var props = _.omit(this.props, "updateState");
+    var props = _.omit(this.props, 'updateState');
 
     return (
-      <Checkbox className="checkbox-control" {...props} onChange={this.changed}>
+      <Form.Check className="checkbox-control" {...props} onChange={this.changed}>
         {this.props.children}
-      </Checkbox>
+      </Form.Check>
     );
   }
 }

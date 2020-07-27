@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Well, Dropdown, FormControl, Checkbox } from "react-bootstrap";
+import { Well, Dropdown, FormControl, Form } from 'react-bootstrap';
 
-import RootCloseMenu from "./RootCloseMenu.jsx";
+import RootCloseMenu from './RootCloseMenu.jsx';
 
-import _ from "lodash";
+import _ from 'lodash';
 
 const MAX_ITEMS_FOR_TITLE = 3;
 
@@ -27,12 +27,12 @@ class MultiDropdown extends React.Component {
     super(props);
     var selectedIds = props.selectedIds || [];
     var items = props.items || [];
-    var fieldName = props.fieldName || "name";
+    var fieldName = props.fieldName || 'name';
 
     this.state = {
       selectedIds: selectedIds,
-      title: "",
-      filterTerm: "",
+      title: '',
+      filterTerm: '',
       maxItemsForTitle: props.showMaxItems || MAX_ITEMS_FOR_TITLE,
       allSelected: selectedIds.length === items.length,
       fieldName: fieldName,
@@ -65,16 +65,16 @@ class MultiDropdown extends React.Component {
     var num = selectedIds.length;
 
     if (num === 0) {
-      return this.props.placeholder || "Select items";
+      return this.props.placeholder || 'Select items';
     } else if (num === this.props.items.length) {
-      return "All selected";
+      return 'All selected';
     } else if (num > this.state.maxItemsForTitle) {
       return `(${num}) selected`;
     } else {
       return _.map(
         _.pickBy(items, (item) => selectedIds.includes(item.id)),
         this.state.fieldName
-      ).join(", ");
+      ).join(', ');
     }
   };
 
@@ -98,7 +98,7 @@ class MultiDropdown extends React.Component {
   };
 
   selectAll = (e) => {
-    var selectedIds = e.target.checked ? _.map(this.props.items, "id") : [];
+    var selectedIds = e.target.checked ? _.map(this.props.items, 'id') : [];
 
     this.setState({
       selectedIds: selectedIds,
@@ -110,9 +110,7 @@ class MultiDropdown extends React.Component {
   };
 
   sendSelected = (selectedIds) => {
-    var selected = this.props.items.filter((item) =>
-      selectedIds.includes(item.id)
-    );
+    var selected = this.props.items.filter((item) => selectedIds.includes(item.id));
 
     // Send selected items to change listener
     if (this.props.onChange) {
@@ -146,17 +144,13 @@ class MultiDropdown extends React.Component {
 
     if (this.state.filterTerm.length > 0) {
       items = _.filter(items, (item) => {
-        return (
-          item[this.state.fieldName]
-            .toLowerCase()
-            .indexOf(this.state.filterTerm) !== -1
-        );
+        return item[this.state.fieldName].toLowerCase().indexOf(this.state.filterTerm) !== -1;
       });
     }
 
     return (
       <Dropdown
-        className={`multi-dropdown ${this.props.className || ""}`}
+        className={`multi-dropdown ${this.props.className || ''}`}
         id={this.props.id}
         title={this.state.title}
         open={this.state.open}
@@ -174,26 +168,22 @@ class MultiDropdown extends React.Component {
                 this.input = ref;
               }}
             />
-            <Checkbox
-              className="select-all"
-              checked={this.state.allSelected}
-              onChange={this.selectAll}
-            >
+            <Form.Check className="select-all" checked={this.state.allSelected} onChange={this.selectAll}>
               Select All
-            </Checkbox>
+            </Form.Check>
           </Well>
           {items.length > 0 && (
             <ul>
               {_.map(items, (item) => {
                 return (
                   <li key={item.id}>
-                    <Checkbox
+                    <Form.Check
                       value={item.id}
                       checked={this.state.selectedIds.includes(item.id)}
                       onChange={this.itemSelected}
                     >
                       {item[this.state.fieldName]}
-                    </Checkbox>
+                    </Form.Check>
                   </li>
                 );
               })}
