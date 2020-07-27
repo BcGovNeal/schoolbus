@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Grid, Row, Col } from 'react-bootstrap';
-import { Radio, Button, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
 import { Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
 
 import _ from 'lodash';
@@ -543,20 +543,22 @@ class SchoolBusesEditDialog extends React.Component {
                     <FormGroup>
                       <Form.Label>Independent School</Form.Label>
                       <FormInputControl componentClass="div">
-                        <Radio
+                        <Form.Check
                           inline
                           onChange={this.isIndependentSchoolChanged.bind(this, true)}
                           checked={this.state.isIndependentSchool}
+                          type="radio"
                         >
                           Yes
-                        </Radio>{' '}
-                        <Radio
+                        </Form.Check>{' '}
+                        <Form.Check
                           inline
                           onChange={this.isIndependentSchoolChanged.bind(this, false)}
                           checked={!this.state.isIndependentSchool}
+                          type="radio"
                         >
                           No
-                        </Radio>
+                        </Form.Check>
                       </FormInputControl>
                     </FormGroup>
                   </Col>
