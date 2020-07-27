@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { Form, FormControl, FormGroup } from 'react-bootstrap';
 
@@ -340,7 +340,7 @@ class SchoolBusesEditDialog extends React.Component {
 
           return (
             <Form>
-              <Grid fluid>
+              <Container fluid>
                 <Row>
                   <Col md={3}>
                     <FormGroup controlId="status">
@@ -618,7 +618,7 @@ class SchoolBusesEditDialog extends React.Component {
                     </FormGroup>
                   </Col>
                 </Row>
-              </Grid>
+              </Container>
             </Form>
           );
         })()}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Form, FormGroup } from 'react-bootstrap';
 import * as Constant from '../../constants';
 
@@ -281,7 +281,7 @@ class ContactEditDialog extends React.Component {
 
             return (
               <Form>
-                <Grid fluid>
+                <Container fluid>
                   <Well>
                     <Row>
                       <Col md={4}>
@@ -502,7 +502,7 @@ class ContactEditDialog extends React.Component {
                       </Col>
                     </Row>
                   </Well>
-                </Grid>
+                </Container>
               </Form>
             );
           })()}

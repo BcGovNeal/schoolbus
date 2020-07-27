@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Form, FormGroup } from 'react-bootstrap';
 import { Table, Button, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -245,7 +245,7 @@ class RolesDetail extends React.Component {
 
                 return (
                   <Form id="roles-edit">
-                    <Grid fluid>
+                    <Container fluid>
                       <Row>
                         <Col md={3}>
                           <FormGroup controlId="name" validationState={this.state.nameError ? 'error' : null}>
@@ -277,7 +277,7 @@ class RolesDetail extends React.Component {
                           </FormGroup>
                         </Col>
                       </Row>
-                    </Grid>
+                    </Container>
                   </Form>
                 );
               })()}

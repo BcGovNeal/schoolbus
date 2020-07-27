@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Form, FormGroup } from 'react-bootstrap';
 
 import _ from 'lodash';
@@ -177,7 +177,7 @@ class UsersEditDialog extends React.Component {
         {(() => {
           return (
             <Form>
-              <Grid fluid>
+              <Container fluid>
                 <Row>
                   <Col md={4}>
                     <FormGroup controlId="givenName" validationState={this.state.givenNameError ? 'error' : null}>
@@ -271,7 +271,7 @@ class UsersEditDialog extends React.Component {
                     </FormGroup>
                   </Col>
                 </Row>
-              </Grid>
+              </Container>
             </Form>
           );
         })()}

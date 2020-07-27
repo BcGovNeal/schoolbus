@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Form, FormGroup } from 'react-bootstrap';
 
 import _ from 'lodash';
@@ -122,7 +122,7 @@ class UserRoleAddDialog extends React.Component {
         isValid={this.isValid}
       >
         <Form>
-          <Grid fluid>
+          <Container fluid>
             <Row>
               <Col md={4}>
                 <FormGroup controlId="roleId" validationState={this.state.roleIdError ? 'error' : null}>
@@ -169,7 +169,7 @@ class UserRoleAddDialog extends React.Component {
                 </FormGroup>
               </Col>
             </Row>
-          </Grid>
+          </Container>
         </Form>
       </EditDialog>
     );

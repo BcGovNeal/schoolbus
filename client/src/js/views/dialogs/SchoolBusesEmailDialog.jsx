@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import EditDialog from '../../components/EditDialog.jsx';
 import FormInputControl from '../../components/FormInputControl.jsx';
 import Spinner from '../../components/Spinner.jsx';
-import { Form, FormGroup, Grid, Row, Col } from 'react-bootstrap';
+import { Form, FormGroup, Container, Row, Col } from 'react-bootstrap';
 import { Editor, EditorState, ContentState, RichUtils, convertFromHTML } from 'draft-js';
 import { registerCopySource, handleDraftEditorPastedText } from 'draftjs-conductor'; //copy-pasted between Draft.js editor
 import { convertToHTML } from 'draft-convert';
@@ -383,7 +383,7 @@ class SchoolBusesEmailDialog extends React.Component {
 
             return (
               <Form>
-                <Grid fluid>
+                <Container fluid>
                   <Well>
                     <Row>
                       <Col md={12}>
@@ -484,7 +484,7 @@ class SchoolBusesEmailDialog extends React.Component {
                       </Col>
                     </Row>
                   </Well>
-                </Grid>
+                </Container>
               </Form>
             );
           })()}
