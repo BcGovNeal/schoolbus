@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Well, Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 import { Table, Button, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -16,6 +16,7 @@ import * as Api from '../api';
 import * as Constant from '../constants';
 import store from '../store';
 
+import Well from '../components/Well';
 import FormInputControl from '../components/FormInputControl.jsx';
 import Spinner from '../components/Spinner.jsx';
 import Unimplemented from '../components/Unimplemented.jsx';

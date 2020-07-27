@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { PageHeader, Well, Row, Col } from 'react-bootstrap';
+import { PageHeader, Row, Col } from 'react-bootstrap';
 import { Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 
 import preval from 'preval.macro';
 
+import Well from '../components/Well';
 import * as Api from '../api';
 import * as Constant from '../constants';
 

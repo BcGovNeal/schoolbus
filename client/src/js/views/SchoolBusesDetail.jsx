@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Well, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { Alert, Label, Button, ButtonGroup, Glyphicon, Form } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -19,6 +19,7 @@ import * as Constant from '../constants';
 import * as History from '../history';
 import store from '../store';
 
+import Well from '../components/Well';
 import BadgeLabel from '../components/BadgeLabel.jsx';
 import ColDisplay from '../components/ColDisplay.jsx';
 import DeleteButton from '../components/DeleteButton.jsx';

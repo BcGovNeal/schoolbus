@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Well, Dropdown, FormControl, MenuItem } from 'react-bootstrap';
+import { Dropdown, FormControl, MenuItem } from 'react-bootstrap';
 
+import Well from './Well';
 import RootCloseMenu from './RootCloseMenu.jsx';
 
 import _ from 'lodash';

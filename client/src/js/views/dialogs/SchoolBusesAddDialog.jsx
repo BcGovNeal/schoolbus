@@ -1,26 +1,27 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Row, Col, Well } from "react-bootstrap";
-import { ButtonToolbar, ButtonGroup, Button, Glyphicon } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Row, Col } from 'react-bootstrap';
+import { ButtonToolbar, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
-import * as Action from "../../actionTypes";
-import * as Api from "../../api";
-import * as Constant from "../../constants";
-import store from "../../store";
+import * as Action from '../../actionTypes';
+import * as Api from '../../api';
+import * as Constant from '../../constants';
+import store from '../../store';
 
-import ColDisplay from "../../components/ColDisplay.jsx";
-import ModalDialog from "../../components/ModalDialog.jsx";
-import KeySearchControl from "../../components/KeySearchControl.jsx";
-import Spinner from "../../components/Spinner.jsx";
+import Well from '../../components/Well';
+import ColDisplay from '../../components/ColDisplay.jsx';
+import ModalDialog from '../../components/ModalDialog.jsx';
+import KeySearchControl from '../../components/KeySearchControl.jsx';
+import Spinner from '../../components/Spinner.jsx';
 
-import { formatDateTime } from "../../utils/date";
-import { concat } from "../../utils/string";
+import { formatDateTime } from '../../utils/date';
+import { concat } from '../../utils/string';
 
 class SchoolBusAddDialog extends React.Component {
   static propTypes = {
@@ -81,9 +82,7 @@ class SchoolBusAddDialog extends React.Component {
           } else {
             return Api.searchCCW(this.state.search.keySearchParams)
               .then(() => {
-                var found = this.props.schoolBusCCW.icbcRegistrationNumber
-                  ? true
-                  : false;
+                var found = this.props.schoolBusCCW.icbcRegistrationNumber ? true : false;
                 this.setState({
                   ccwFound: found,
                   ccwError: !found,
@@ -141,11 +140,7 @@ class SchoolBusAddDialog extends React.Component {
                     <Button id="close-button" onClick={this.props.onClose}>
                       Close
                     </Button>
-                    <Button
-                      id="search-button"
-                      bsStyle="primary"
-                      onClick={this.fetch}
-                    >
+                    <Button id="search-button" bsStyle="primary" onClick={this.fetch}>
                       Search
                     </Button>
                   </ButtonGroup>
@@ -154,7 +149,7 @@ class SchoolBusAddDialog extends React.Component {
               {(() => {
                 if (this.state.loading) {
                   return (
-                    <div style={{ textAlign: "center" }}>
+                    <div style={{ textAlign: 'center' }}>
                       <Spinner />
                     </div>
                   );
@@ -164,9 +159,7 @@ class SchoolBusAddDialog extends React.Component {
                   return (
                     <div>
                       <Row className="has-error">
-                        <span>
-                          This bus is already in the Inspection Tracking System.
-                        </span>
+                        <span>This bus is already in the Inspection Tracking System.</span>
                         <LinkContainer
                           to={{
                             pathname: `${Constant.BUSES_PATHNAME}/${this.state.busInSystemId}`,
@@ -186,8 +179,7 @@ class SchoolBusAddDialog extends React.Component {
                     <div>
                       <Row className="has-error">
                         <span>
-                          Could not find this {this.state.search.keySearchField}{" "}
-                          in the ICBC repository of vehicles.
+                          Could not find this {this.state.search.keySearchField} in the ICBC repository of vehicles.
                         </span>
                       </Row>
                     </div>
@@ -203,23 +195,16 @@ class SchoolBusAddDialog extends React.Component {
                         <ColDisplay label="Registration">
                           {ccw.icbcRegistrationNumber || <span>&nbsp;</span>}
                         </ColDisplay>
-                        <ColDisplay label="Plate">
-                          {ccw.icbcLicencePlateNumber || <span>&nbsp;</span>}
-                        </ColDisplay>
+                        <ColDisplay label="Plate">{ccw.icbcLicencePlateNumber || <span>&nbsp;</span>}</ColDisplay>
                         <ColDisplay label="VIN">
-                          {ccw.icbcVehicleIdentificationNumber || (
-                            <span>&nbsp;</span>
-                          )}
+                          {ccw.icbcVehicleIdentificationNumber || <span>&nbsp;</span>}
                         </ColDisplay>
                       </Row>
                       <Row>
                         <Well>
                           <h3>ICBC Registered Owner</h3>
                           {(() => {
-                            var city = concat(
-                              ccw.icbcRegOwnerCity,
-                              ccw.icbcRegOwnerProv
-                            );
+                            var city = concat(ccw.icbcRegOwnerCity, ccw.icbcRegOwnerProv);
                             city = concat(city, ccw.icbcRegOwnerPostalCode);
 
                             return (
@@ -235,11 +220,7 @@ class SchoolBusAddDialog extends React.Component {
                                 <Row>
                                   <ColDisplay md={8} label="Address">
                                     {(() => {
-                                      if (
-                                        ccw.icbcRegOwnerAddr1 &&
-                                        ccw.icbcRegOwnerAddr2 &&
-                                        city
-                                      ) {
+                                      if (ccw.icbcRegOwnerAddr1 && ccw.icbcRegOwnerAddr2 && city) {
                                         return (
                                           <div>
                                             {ccw.icbcRegOwnerAddr1}
@@ -250,10 +231,7 @@ class SchoolBusAddDialog extends React.Component {
                                           </div>
                                         );
                                       }
-                                      if (
-                                        ccw.icbcRegOwnerAddr1 &&
-                                        ccw.icbcRegOwnerAddr2
-                                      ) {
+                                      if (ccw.icbcRegOwnerAddr1 && ccw.icbcRegOwnerAddr2) {
                                         return (
                                           <div>
                                             {ccw.icbcRegOwnerAddr1}
@@ -262,11 +240,7 @@ class SchoolBusAddDialog extends React.Component {
                                           </div>
                                         );
                                       }
-                                      if (
-                                        (ccw.icbcRegOwnerAddr1 ||
-                                          ccw.icbcRegOwnerAddr2) &&
-                                        city
-                                      ) {
+                                      if ((ccw.icbcRegOwnerAddr1 || ccw.icbcRegOwnerAddr2) && city) {
                                         return (
                                           <div>
                                             {ccw.icbcRegOwnerAddr1}
@@ -372,10 +346,7 @@ class SchoolBusAddDialog extends React.Component {
                                     {ccw.icbcFleetUnitNo}
                                   </ColDisplay>
                                   <ColDisplay md={6} label="CVIP Expiry">
-                                    {formatDateTime(
-                                      ccw.icbccvipExpiry,
-                                      Constant.DATE_SHORT_MONTH_DAY_YEAR
-                                    )}
+                                    {formatDateTime(ccw.icbccvipExpiry, Constant.DATE_SHORT_MONTH_DAY_YEAR)}
                                   </ColDisplay>
                                 </Row>
                                 <Row>
@@ -383,10 +354,7 @@ class SchoolBusAddDialog extends React.Component {
                                     {ccw.icbcNotesAndOrders}
                                   </ColDisplay>
                                   <ColDisplay md={6} label="Ordered On">
-                                    {formatDateTime(
-                                      ccw.icbcOrderedOn,
-                                      Constant.DATE_SHORT_MONTH_DAY_YEAR
-                                    )}
+                                    {formatDateTime(ccw.icbcOrderedOn, Constant.DATE_SHORT_MONTH_DAY_YEAR)}
                                   </ColDisplay>
                                 </Row>
                               </div>
@@ -398,11 +366,7 @@ class SchoolBusAddDialog extends React.Component {
                         <Row>
                           <Col md={12}>
                             <span id="school-buses-ccw-fetched">
-                              ICBC data last fetched on{" "}
-                              {formatDateTime(
-                                ccw.dateFetched,
-                                Constant.DATE_TIME_READABLE
-                              )}
+                              ICBC data last fetched on {formatDateTime(ccw.dateFetched, Constant.DATE_TIME_READABLE)}
                             </span>
                           </Col>
                         </Row>

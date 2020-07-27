@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Grid, Row, Col, Well } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 import * as Constant from '../../constants';
 
+import Well from '../../components/Well';
 import DropdownControl from '../../components/DropdownControl.jsx';
 import EditDialog from '../../components/EditDialog.jsx';
 import FormInputControl from '../../components/FormInputControl.jsx';
