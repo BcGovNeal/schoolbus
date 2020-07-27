@@ -1,18 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Form, FormGroup, HelpBlock, ControlLabel } from "react-bootstrap";
+import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
-import * as Constant from "../../constants";
+import * as Constant from '../../constants';
 
-import EditDialog from "../../components/EditDialog.jsx";
-import FormInputControl from "../../components/FormInputControl.jsx";
+import EditDialog from '../../components/EditDialog.jsx';
+import FormInputControl from '../../components/FormInputControl.jsx';
 
-import { isBlank, notBlank } from "../../utils/string";
+import { isBlank, notBlank } from '../../utils/string';
 
 class OwnersAddDialog extends React.Component {
   static propTypes = {
@@ -23,8 +23,8 @@ class OwnersAddDialog extends React.Component {
   };
 
   state = {
-    name: "",
-    nameError: "",
+    name: '',
+    nameError: '',
   };
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class OwnersAddDialog extends React.Component {
 
   isValid = () => {
     if (isBlank(this.state.name)) {
-      this.setState({ nameError: "Name is required" });
+      this.setState({ nameError: 'Name is required' });
       return false;
     }
     // Does the name already exist?
@@ -50,7 +50,7 @@ class OwnersAddDialog extends React.Component {
       return owner.name.toLowerCase().trim() === name;
     });
     if (owner) {
-      this.setState({ nameError: "This owner already exists in the system" });
+      this.setState({ nameError: 'This owner already exists in the system' });
       return false;
     }
     return true;
@@ -76,13 +76,10 @@ class OwnersAddDialog extends React.Component {
         title={<strong>Add Owner</strong>}
       >
         <Form>
-          <FormGroup
-            controlId="name"
-            validationState={this.state.nameError ? "error" : null}
-          >
-            <ControlLabel>
+          <FormGroup controlId="name" validationState={this.state.nameError ? 'error' : null}>
+            <Form.Label>
               Name <sup>*</sup>
-            </ControlLabel>
+            </Form.Label>
             <FormInputControl
               type="text"
               value={this.state.name}

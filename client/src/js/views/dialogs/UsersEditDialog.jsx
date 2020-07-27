@@ -1,22 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from "react-bootstrap";
-import { Form, FormGroup, HelpBlock, ControlLabel } from "react-bootstrap";
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
-import * as Constant from "../../constants";
+import * as Constant from '../../constants';
 
-import DropdownControl from "../../components/DropdownControl.jsx";
-import EditDialog from "../../components/EditDialog.jsx";
-import FilterDropdown from "../../components/FilterDropdown.jsx";
-import FormInputControl from "../../components/FormInputControl.jsx";
-import MultiDropdown from "../../components/MultiDropdown.jsx";
+import DropdownControl from '../../components/DropdownControl.jsx';
+import EditDialog from '../../components/EditDialog.jsx';
+import FilterDropdown from '../../components/FilterDropdown.jsx';
+import FormInputControl from '../../components/FormInputControl.jsx';
+import MultiDropdown from '../../components/MultiDropdown.jsx';
 
-import { isBlank } from "../../utils/string";
+import { isBlank } from '../../utils/string';
 
 class UsersEditDialog extends React.Component {
   static propTypes = {
@@ -33,19 +33,17 @@ class UsersEditDialog extends React.Component {
     isNew: this.props.user.id === 0,
 
     active: this.props.user.active === true,
-    givenName: this.props.user.givenName || "",
-    surname: this.props.user.surname || "",
-    smUserId: this.props.user.smUserId || "",
-    email: this.props.user.email || "",
+    givenName: this.props.user.givenName || '',
+    surname: this.props.user.surname || '',
+    smUserId: this.props.user.smUserId || '',
+    email: this.props.user.email || '',
     districtId: this.props.user.district.id || 0,
     selectedGroupsIds:
       this.props.user.groupIds.map((groupIds) => {
         return groupIds.groupId;
       }) || [],
 
-    status: this.props.user.active
-      ? Constant.STATUS_ACTIVE
-      : Constant.STATUS_ARCHIVED,
+    status: this.props.user.active ? Constant.STATUS_ACTIVE : Constant.STATUS_ARCHIVED,
 
     givenNameError: false,
     surnameError: false,
@@ -112,32 +110,32 @@ class UsersEditDialog extends React.Component {
     var valid = true;
 
     if (isBlank(this.state.givenName)) {
-      this.setState({ givenNameError: "Given Name is required" });
+      this.setState({ givenNameError: 'Given Name is required' });
       valid = false;
     }
 
     if (isBlank(this.state.surname)) {
-      this.setState({ surnameError: "Surname is required" });
+      this.setState({ surnameError: 'Surname is required' });
       valid = false;
     }
 
     if (isBlank(this.state.smUserId)) {
-      this.setState({ smUserIdError: "User ID is required" });
+      this.setState({ smUserIdError: 'User ID is required' });
       valid = false;
     }
 
     if (isBlank(this.state.email)) {
-      this.setState({ emailError: "E-mail address is required" });
+      this.setState({ emailError: 'E-mail address is required' });
       valid = false;
     }
 
     if (this.state.districtId === 0) {
-      this.setState({ districtIdError: "District is required" });
+      this.setState({ districtIdError: 'District is required' });
       valid = false;
     }
 
     if (this.state.selectedGroupsIds.length === 0) {
-      this.setState({ selectedGroupsIdsError: "Group is required" });
+      this.setState({ selectedGroupsIdsError: 'Group is required' });
       valid = false;
     }
 
@@ -162,8 +160,8 @@ class UsersEditDialog extends React.Component {
   };
 
   render() {
-    var districts = _.sortBy(this.props.districts, "name");
-    var groups = _.sortBy(this.props.groups, "name");
+    var districts = _.sortBy(this.props.districts, 'name');
+    var groups = _.sortBy(this.props.groups, 'name');
 
     return (
       <EditDialog
@@ -182,15 +180,10 @@ class UsersEditDialog extends React.Component {
               <Grid fluid>
                 <Row>
                   <Col md={4}>
-                    <FormGroup
-                      controlId="givenName"
-                      validationState={
-                        this.state.givenNameError ? "error" : null
-                      }
-                    >
-                      <ControlLabel>
+                    <FormGroup controlId="givenName" validationState={this.state.givenNameError ? 'error' : null}>
+                      <Form.Label>
                         Given Name <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <FormInputControl
                         type="text"
                         defaultValue={this.state.givenName}
@@ -203,81 +196,50 @@ class UsersEditDialog extends React.Component {
                     </FormGroup>
                   </Col>
                   <Col md={4}>
-                    <FormGroup
-                      controlId="surname"
-                      validationState={this.state.surnameError ? "error" : null}
-                    >
-                      <ControlLabel>
+                    <FormGroup controlId="surname" validationState={this.state.surnameError ? 'error' : null}>
+                      <Form.Label>
                         Surname <sup>*</sup>
-                      </ControlLabel>
-                      <FormInputControl
-                        type="text"
-                        defaultValue={this.state.surname}
-                        updateState={this.updateState}
-                      />
+                      </Form.Label>
+                      <FormInputControl type="text" defaultValue={this.state.surname} updateState={this.updateState} />
                       <HelpBlock>{this.state.surnameError}</HelpBlock>
                     </FormGroup>
                   </Col>
                   <Col md={2}>
-                    <FormGroup
-                      controlId="smUserId"
-                      validationState={
-                        this.state.smUserIdError ? "error" : null
-                      }
-                    >
-                      <ControlLabel>
+                    <FormGroup controlId="smUserId" validationState={this.state.smUserIdError ? 'error' : null}>
+                      <Form.Label>
                         User ID <sup>*</sup>
-                      </ControlLabel>
-                      <FormInputControl
-                        type="text"
-                        defaultValue={this.state.smUserId}
-                        updateState={this.updateState}
-                      />
+                      </Form.Label>
+                      <FormInputControl type="text" defaultValue={this.state.smUserId} updateState={this.updateState} />
                       <HelpBlock>{this.state.smUserIdError}</HelpBlock>
                     </FormGroup>
                   </Col>
                   <Col md={2}>
                     <FormGroup controlId="status">
-                      <ControlLabel>Status</ControlLabel>
+                      <Form.Label>Status</Form.Label>
                       <DropdownControl
                         id="status"
                         title={this.state.status}
                         updateState={this.updateStatus}
-                        items={[
-                          Constant.STATUS_ACTIVE,
-                          Constant.STATUS_ARCHIVED,
-                        ]}
+                        items={[Constant.STATUS_ACTIVE, Constant.STATUS_ARCHIVED]}
                       />
                     </FormGroup>
                   </Col>
                 </Row>
                 <Row>
                   <Col md={4}>
-                    <FormGroup
-                      controlId="email"
-                      validationState={this.state.emailError ? "error" : null}
-                    >
-                      <ControlLabel>
+                    <FormGroup controlId="email" validationState={this.state.emailError ? 'error' : null}>
+                      <Form.Label>
                         E-mail <sup>*</sup>
-                      </ControlLabel>
-                      <FormInputControl
-                        type="text"
-                        defaultValue={this.state.email}
-                        updateState={this.updateState}
-                      />
+                      </Form.Label>
+                      <FormInputControl type="text" defaultValue={this.state.email} updateState={this.updateState} />
                       <HelpBlock>{this.state.emailError}</HelpBlock>
                     </FormGroup>
                   </Col>
                   <Col md={4}>
-                    <FormGroup
-                      controlId="districtId"
-                      validationState={
-                        this.state.districtIdError ? "error" : null
-                      }
-                    >
-                      <ControlLabel>
+                    <FormGroup controlId="districtId" validationState={this.state.districtIdError ? 'error' : null}>
+                      <Form.Label>
                         District <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <FilterDropdown
                         id="districtId"
                         placeholder="None"
@@ -292,13 +254,11 @@ class UsersEditDialog extends React.Component {
                   <Col md={4}>
                     <FormGroup
                       controlId="selectedGroupsIds"
-                      validationState={
-                        this.state.selectedGroupsIdsError ? "error" : null
-                      }
+                      validationState={this.state.selectedGroupsIdsError ? 'error' : null}
                     >
-                      <ControlLabel>
+                      <Form.Label>
                         Groups <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <MultiDropdown
                         id="selectedGroupsIds"
                         placeholder="None"

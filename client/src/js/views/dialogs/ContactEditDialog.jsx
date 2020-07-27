@@ -1,20 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Grid, Row, Col, Well } from "react-bootstrap";
-import { Form, FormGroup, ControlLabel, HelpBlock } from "react-bootstrap";
-import * as Constant from "../../constants";
+import { Grid, Row, Col, Well } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import * as Constant from '../../constants';
 
-import DropdownControl from "../../components/DropdownControl.jsx";
-import EditDialog from "../../components/EditDialog.jsx";
-import FormInputControl from "../../components/FormInputControl.jsx";
-import Spinner from "../../components/Spinner.jsx";
-import CheckboxControl from "../../components/CheckboxControl.jsx";
-import PrimaryChangeConfirmDialog from "../../views/dialogs/PrimaryChangeConfirmDialog.jsx";
+import DropdownControl from '../../components/DropdownControl.jsx';
+import EditDialog from '../../components/EditDialog.jsx';
+import FormInputControl from '../../components/FormInputControl.jsx';
+import Spinner from '../../components/Spinner.jsx';
+import CheckboxControl from '../../components/CheckboxControl.jsx';
+import PrimaryChangeConfirmDialog from '../../views/dialogs/PrimaryChangeConfirmDialog.jsx';
 
-import { isBlank } from "../../utils/string";
+import { isBlank } from '../../utils/string';
 
 class ContactEditDialog extends React.Component {
   static propTypes = {
@@ -27,11 +27,7 @@ class ContactEditDialog extends React.Component {
 
   constructor(props) {
     super(props);
-    var isPrimary =
-      props.owner.primaryContact &&
-      props.contact.id === props.owner.primaryContact.id
-        ? true
-        : false;
+    var isPrimary = props.owner.primaryContact && props.contact.id === props.owner.primaryContact.id ? true : false;
 
     this.state = {
       loading: false,
@@ -46,35 +42,23 @@ class ContactEditDialog extends React.Component {
 
       currentContact: {
         id: props.contact.id ? props.contact.id : 0,
-        address1: props.contact.address1 ? props.contact.address1 : "",
-        address2: props.contact.address2 ? props.contact.address2 : "",
-        city: props.contact.city ? props.contact.city : "",
-        emailAddress: props.contact.emailAddress
-          ? props.contact.emailAddress
-          : "",
-        faxPhoneNumber: props.contact.faxPhoneNumber
-          ? props.contact.faxPhoneNumber
-          : "",
-        givenName: props.contact.givenName ? props.contact.givenName : "",
-        mobilePhoneNumber: props.contact.mobilePhoneNumber
-          ? props.contact.mobilePhoneNumber
-          : "",
-        notes: props.contact.notes ? props.contact.notes : "",
-        organizationName: props.contact.organizationName
-          ? props.contact.organizationName
-          : "",
-        postalCode: props.contact.postalCode ? props.contact.postalCode : "",
-        province: props.contact.province ? props.contact.province : "",
-        role: props.contact.role ? props.contact.role : "",
-        surname: props.contact.surname ? props.contact.surname : "",
-        workPhoneNumber: props.contact.workPhoneNumber
-          ? props.contact.workPhoneNumber
-          : "",
+        address1: props.contact.address1 ? props.contact.address1 : '',
+        address2: props.contact.address2 ? props.contact.address2 : '',
+        city: props.contact.city ? props.contact.city : '',
+        emailAddress: props.contact.emailAddress ? props.contact.emailAddress : '',
+        faxPhoneNumber: props.contact.faxPhoneNumber ? props.contact.faxPhoneNumber : '',
+        givenName: props.contact.givenName ? props.contact.givenName : '',
+        mobilePhoneNumber: props.contact.mobilePhoneNumber ? props.contact.mobilePhoneNumber : '',
+        notes: props.contact.notes ? props.contact.notes : '',
+        organizationName: props.contact.organizationName ? props.contact.organizationName : '',
+        postalCode: props.contact.postalCode ? props.contact.postalCode : '',
+        province: props.contact.province ? props.contact.province : '',
+        role: props.contact.role ? props.contact.role : '',
+        surname: props.contact.surname ? props.contact.surname : '',
+        workPhoneNumber: props.contact.workPhoneNumber ? props.contact.workPhoneNumber : '',
       },
 
-      primaryContact: props.owner.primaryContact
-        ? props.owner.primaryContact
-        : null,
+      primaryContact: props.owner.primaryContact ? props.owner.primaryContact : null,
 
       surnameError: false,
       emailError: false,
@@ -95,14 +79,11 @@ class ContactEditDialog extends React.Component {
   }
 
   updateState = (state, callback) => {
-    this.setState(
-      { currentContact: { ...this.state.currentContact, ...state } },
-      () => {
-        if (callback) {
-          callback();
-        }
+    this.setState({ currentContact: { ...this.state.currentContact, ...state } }, () => {
+      if (callback) {
+        callback();
       }
-    );
+    });
   };
 
   updateCheckboxValue = () => {
@@ -123,37 +104,37 @@ class ContactEditDialog extends React.Component {
     var valid = true;
 
     if (isBlank(this.state.currentContact.surname)) {
-      this.setState({ surnameError: "Last name is required" });
+      this.setState({ surnameError: 'Last name is required' });
       valid = false;
     }
 
     if (isBlank(this.state.currentContact.emailAddress)) {
-      this.setState({ emailError: "E-mail is required" });
+      this.setState({ emailError: 'E-mail is required' });
       valid = false;
     }
 
     if (isBlank(this.state.currentContact.workPhoneNumber)) {
-      this.setState({ workPhoneError: "Work phone number is required" });
+      this.setState({ workPhoneError: 'Work phone number is required' });
       valid = false;
     }
 
     if (isBlank(this.state.currentContact.address1)) {
-      this.setState({ address1Error: "Address is required" });
+      this.setState({ address1Error: 'Address is required' });
       valid = false;
     }
 
     if (isBlank(this.state.currentContact.city)) {
-      this.setState({ cityError: "City is required" });
+      this.setState({ cityError: 'City is required' });
       valid = false;
     }
 
     if (isBlank(this.state.currentContact.province)) {
-      this.setState({ provinceError: "Province is required" });
+      this.setState({ provinceError: 'Province is required' });
       valid = false;
     }
 
     if (isBlank(this.state.currentContact.postalCode)) {
-      this.setState({ postalCodeError: "Postal code is required" });
+      this.setState({ postalCodeError: 'Postal code is required' });
       valid = false;
     }
 
@@ -220,33 +201,19 @@ class ContactEditDialog extends React.Component {
     if (this.state.currentContact.surname !== this.props.contact.surname) {
       return true;
     }
-    if (
-      this.state.currentContact.organizationName !==
-      this.props.contact.organizationName
-    ) {
+    if (this.state.currentContact.organizationName !== this.props.contact.organizationName) {
       return true;
     }
-    if (
-      this.state.currentContact.emailAddress !== this.props.contact.emailAddress
-    ) {
+    if (this.state.currentContact.emailAddress !== this.props.contact.emailAddress) {
       return true;
     }
-    if (
-      this.state.currentContact.workPhoneNumber !==
-      this.props.contact.workPhoneNumber
-    ) {
+    if (this.state.currentContact.workPhoneNumber !== this.props.contact.workPhoneNumber) {
       return true;
     }
-    if (
-      this.state.currentContact.mobilePhoneNumber !==
-      this.props.contact.mobilePhoneNumber
-    ) {
+    if (this.state.currentContact.mobilePhoneNumber !== this.props.contact.mobilePhoneNumber) {
       return true;
     }
-    if (
-      this.state.currentContact.faxPhoneNumber !==
-      this.props.contact.faxPhoneNumber
-    ) {
+    if (this.state.currentContact.faxPhoneNumber !== this.props.contact.faxPhoneNumber) {
       return true;
     }
     if (this.state.currentContact.address1 !== this.props.contact.address1) {
@@ -261,9 +228,7 @@ class ContactEditDialog extends React.Component {
     if (this.state.currentContact.province !== this.props.contact.province) {
       return true;
     }
-    if (
-      this.state.currentContact.postalCode !== this.props.contact.postalCode
-    ) {
+    if (this.state.currentContact.postalCode !== this.props.contact.postalCode) {
       return true;
     }
     if (this.state.currentContact.notes !== this.props.contact.notes) {
@@ -279,9 +244,7 @@ class ContactEditDialog extends React.Component {
     } else {
       if (this.state.primaryContact == null) {
         return true;
-      } else if (
-        this.state.primaryContact.id !== this.props.owner.primaryContact.id
-      ) {
+      } else if (this.state.primaryContact.id !== this.props.owner.primaryContact.id) {
         return true;
       }
     }
@@ -293,21 +256,7 @@ class ContactEditDialog extends React.Component {
   };
 
   render() {
-    var provinces = [
-      "AB",
-      "BC",
-      "MB",
-      "NB",
-      "NL",
-      "NT",
-      "NS",
-      "NU",
-      "ON",
-      "PE",
-      "QC",
-      "SK",
-      "YT",
-    ];
+    var provinces = ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
 
     return (
       <div>
@@ -323,7 +272,7 @@ class ContactEditDialog extends React.Component {
           {(() => {
             if (this.state.loading) {
               return (
-                <div style={{ textAlign: "center" }}>
+                <div style={{ textAlign: 'center' }}>
                   <Spinner />
                 </div>
               );
@@ -336,7 +285,7 @@ class ContactEditDialog extends React.Component {
                     <Row>
                       <Col md={4}>
                         <FormGroup controlId="givenName">
-                          <ControlLabel>First name</ControlLabel>
+                          <Form.Label>First name</Form.Label>
                           <FormInputControl
                             id="givenName"
                             type="text"
@@ -346,15 +295,10 @@ class ContactEditDialog extends React.Component {
                         </FormGroup>
                       </Col>
                       <Col md={4}>
-                        <FormGroup
-                          controlId="surname"
-                          validationState={
-                            this.state.surnameError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="surname" validationState={this.state.surnameError ? 'error' : null}>
+                          <Form.Label>
                             Last name <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <FormInputControl
                             id="surname"
                             type="text"
@@ -366,7 +310,7 @@ class ContactEditDialog extends React.Component {
                       </Col>
                       <Col md={4}>
                         <FormGroup controlId="role">
-                          <ControlLabel>Role</ControlLabel>
+                          <Form.Label>Role</Form.Label>
                           <DropdownControl
                             id="role"
                             title={this.state.currentContact.role}
@@ -387,35 +331,24 @@ class ContactEditDialog extends React.Component {
                     <Row>
                       <Col md={8}>
                         <FormGroup>
-                          <ControlLabel htmlFor="organizationName">
-                            Organization name
-                          </ControlLabel>
+                          <Form.Label htmlFor="organizationName">Organization name</Form.Label>
                           <FormInputControl
                             id="organizationName"
                             type="text"
-                            defaultValue={
-                              this.state.currentContact.organizationName
-                            }
+                            defaultValue={this.state.currentContact.organizationName}
                             updateState={this.updateState}
                           />
                         </FormGroup>
                       </Col>
                       <Col md={4}>
-                        <FormGroup
-                          controlId="emailAddress"
-                          validationState={
-                            this.state.emailError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="emailAddress" validationState={this.state.emailError ? 'error' : null}>
+                          <Form.Label>
                             Email <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <FormInputControl
                             id="emailAddress"
                             type="text"
-                            defaultValue={
-                              this.state.currentContact.emailAddress
-                            }
+                            defaultValue={this.state.currentContact.emailAddress}
                             updateState={this.updateState}
                           />
                           <HelpBlock>{this.state.emailError}</HelpBlock>
@@ -426,19 +359,15 @@ class ContactEditDialog extends React.Component {
                       <Col md={4}>
                         <FormGroup
                           controlId="workPhoneNumber"
-                          validationState={
-                            this.state.workPhoneError ? "error" : null
-                          }
+                          validationState={this.state.workPhoneError ? 'error' : null}
                         >
-                          <ControlLabel>
+                          <Form.Label>
                             Work phone <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <FormInputControl
                             id="workPhoneNumber"
                             type="text"
-                            defaultValue={
-                              this.state.currentContact.workPhoneNumber
-                            }
+                            defaultValue={this.state.currentContact.workPhoneNumber}
                             updateState={this.updateState}
                           />
                           <HelpBlock>{this.state.workPhoneError}</HelpBlock>
@@ -446,26 +375,22 @@ class ContactEditDialog extends React.Component {
                       </Col>
                       <Col md={4}>
                         <FormGroup controlId="mobilePhoneNumber">
-                          <ControlLabel>Mobile phone</ControlLabel>
+                          <Form.Label>Mobile phone</Form.Label>
                           <FormInputControl
                             id="mobilePhoneNumber"
                             type="text"
-                            defaultValue={
-                              this.state.currentContact.mobilePhoneNumber
-                            }
+                            defaultValue={this.state.currentContact.mobilePhoneNumber}
                             updateState={this.updateState}
                           />
                         </FormGroup>
                       </Col>
                       <Col md={4}>
                         <FormGroup controlId="faxPhoneNumber">
-                          <ControlLabel>Fax phone</ControlLabel>
+                          <Form.Label>Fax phone</Form.Label>
                           <FormInputControl
                             id="faxPhoneNumber"
                             type="text"
-                            defaultValue={
-                              this.state.currentContact.faxPhoneNumber
-                            }
+                            defaultValue={this.state.currentContact.faxPhoneNumber}
                             updateState={this.updateState}
                           />
                         </FormGroup>
@@ -475,15 +400,10 @@ class ContactEditDialog extends React.Component {
                   <Well>
                     <Row>
                       <Col md={6}>
-                        <FormGroup
-                          controlId="address1"
-                          validationState={
-                            this.state.address1Error ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="address1" validationState={this.state.address1Error ? 'error' : null}>
+                          <Form.Label>
                             Address 1 <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <FormInputControl
                             id="address1"
                             type="text"
@@ -495,7 +415,7 @@ class ContactEditDialog extends React.Component {
                       </Col>
                       <Col md={6}>
                         <FormGroup controlId="address2">
-                          <ControlLabel>Address 2</ControlLabel>
+                          <Form.Label>Address 2</Form.Label>
                           <FormInputControl
                             id="address2"
                             type="text"
@@ -507,15 +427,10 @@ class ContactEditDialog extends React.Component {
                     </Row>
                     <Row>
                       <Col md={4}>
-                        <FormGroup
-                          controlId="city"
-                          validationState={
-                            this.state.cityError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="city" validationState={this.state.cityError ? 'error' : null}>
+                          <Form.Label>
                             City <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <FormInputControl
                             id="city"
                             type="text"
@@ -526,15 +441,10 @@ class ContactEditDialog extends React.Component {
                         </FormGroup>
                       </Col>
                       <Col md={4}>
-                        <FormGroup
-                          controlId="province"
-                          validationState={
-                            this.state.provinceError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="province" validationState={this.state.provinceError ? 'error' : null}>
+                          <Form.Label>
                             Province <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <DropdownControl
                             id="province"
                             title={this.state.currentContact.province}
@@ -547,15 +457,10 @@ class ContactEditDialog extends React.Component {
                         </FormGroup>
                       </Col>
                       <Col md={4}>
-                        <FormGroup
-                          controlId="postalCode"
-                          validationState={
-                            this.state.postalCodeError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="postalCode" validationState={this.state.postalCodeError ? 'error' : null}>
+                          <Form.Label>
                             Postal code <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <FormInputControl
                             id="postalCode"
                             type="text"
@@ -571,7 +476,7 @@ class ContactEditDialog extends React.Component {
                     <Row>
                       <Col md={12}>
                         <FormGroup controlId="notes">
-                          <ControlLabel>Note</ControlLabel>
+                          <Form.Label>Note</Form.Label>
                           <FormInputControl
                             id="notes"
                             componentClass="textarea"

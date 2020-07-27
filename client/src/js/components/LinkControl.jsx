@@ -1,15 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import {
-  FormControl,
-  InputGroup,
-  ControlLabel,
-  Button,
-  Glyphicon,
-} from "react-bootstrap";
+import { FormControl, InputGroup, Form, Button, Glyphicon } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
 class LinkControl extends React.Component {
   static propTypes = {
@@ -51,17 +45,14 @@ class LinkControl extends React.Component {
   };
 
   render() {
-    var props = _.omit(this.props, "updateState", "url", "id");
+    var props = _.omit(this.props, 'updateState', 'url', 'id');
 
     return (
-      <div
-        className={`link-control ${this.props.className || ""}`}
-        id={this.props.id}
-      >
+      <div className={`link-control ${this.props.className || ''}`} id={this.props.id}>
         {(() => {
           // Inline label
           if (this.props.label) {
-            return <ControlLabel>{this.props.label}</ControlLabel>;
+            return <Form.Label>{this.props.label}</Form.Label>;
           }
         })()}
         <InputGroup>

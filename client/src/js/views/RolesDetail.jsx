@@ -1,26 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Well, Grid, Row, Col } from "react-bootstrap";
-import { Form, FormGroup, HelpBlock, ControlLabel } from "react-bootstrap";
-import { Table, Button, Glyphicon } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Well, Grid, Row, Col } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Table, Button, Glyphicon } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-import _ from "lodash";
-import Promise from "bluebird";
+import _ from 'lodash';
+import Promise from 'bluebird';
 
-import * as Action from "../actionTypes";
-import * as Api from "../api";
-import * as Constant from "../constants";
-import store from "../store";
+import * as Action from '../actionTypes';
+import * as Api from '../api';
+import * as Constant from '../constants';
+import store from '../store';
 
-import FormInputControl from "../components/FormInputControl.jsx";
-import Spinner from "../components/Spinner.jsx";
-import Unimplemented from "../components/Unimplemented.jsx";
+import FormInputControl from '../components/FormInputControl.jsx';
+import Spinner from '../components/Spinner.jsx';
+import Unimplemented from '../components/Unimplemented.jsx';
 
-import { isBlank } from "../utils/string";
+import { isBlank } from '../utils/string';
 
 class RolesDetail extends React.Component {
   static propTypes = {
@@ -35,15 +35,15 @@ class RolesDetail extends React.Component {
   state = {
     loading: false,
 
-    name: "",
-    description: "",
+    name: '',
+    description: '',
 
-    nameError: "",
-    descriptionError: "",
+    nameError: '',
+    descriptionError: '',
 
     selectedPermissionIds: [],
 
-    isNew: this.props.params.roleId === "0",
+    isNew: this.props.params.roleId === '0',
   };
 
   componentDidMount() {
@@ -67,12 +67,9 @@ class RolesDetail extends React.Component {
 
     Promise.all([rolePromise, permissionsPromise])
       .then(() => {
-        var selectedPermissionIds = _.map(
-          this.props.rolePermissions,
-          (permission) => {
-            return permission.id;
-          }
-        );
+        var selectedPermissionIds = _.map(this.props.rolePermissions, (permission) => {
+          return permission.id;
+        });
         this.setState({
           name: this.props.role.name,
           description: this.props.role.description,
@@ -107,12 +104,12 @@ class RolesDetail extends React.Component {
     var valid = true;
 
     if (isBlank(this.state.name)) {
-      this.setState({ nameError: "Name is required" });
+      this.setState({ nameError: 'Name is required' });
       valid = false;
     }
 
     if (isBlank(this.state.description)) {
-      this.setState({ descriptionError: "Description is required" });
+      this.setState({ descriptionError: 'Description is required' });
       valid = false;
     }
 
@@ -131,15 +128,10 @@ class RolesDetail extends React.Component {
   };
 
   didChangePermissions = () => {
-    var originalPermissionIds = _.map(
-      this.props.rolePermissions,
-      (permission) => {
-        return permission.id;
-      }
-    );
-    if (
-      _.xor(originalPermissionIds, this.state.selectedPermissionIds).length > 0
-    ) {
+    var originalPermissionIds = _.map(this.props.rolePermissions, (permission) => {
+      return permission.id;
+    });
+    if (_.xor(originalPermissionIds, this.state.selectedPermissionIds).length > 0) {
       return true;
     }
 
@@ -220,7 +212,7 @@ class RolesDetail extends React.Component {
         {(() => {
           if (this.state.loading) {
             return (
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: 'center' }}>
                 <Spinner />
               </div>
             );
@@ -231,7 +223,7 @@ class RolesDetail extends React.Component {
               <Row>
                 <Col md={12}>
                   <h1>
-                    Role: <small>{role.name || "New"}</small>
+                    Role: <small>{role.name || 'New'}</small>
                   </h1>
                 </Col>
               </Row>
@@ -244,7 +236,7 @@ class RolesDetail extends React.Component {
               {(() => {
                 if (this.state.loading) {
                   return (
-                    <div style={{ textAlign: "center" }}>
+                    <div style={{ textAlign: 'center' }}>
                       <Spinner />
                     </div>
                   );
@@ -255,15 +247,10 @@ class RolesDetail extends React.Component {
                     <Grid fluid>
                       <Row>
                         <Col md={3}>
-                          <FormGroup
-                            controlId="name"
-                            validationState={
-                              this.state.nameError ? "error" : null
-                            }
-                          >
-                            <ControlLabel>
+                          <FormGroup controlId="name" validationState={this.state.nameError ? 'error' : null}>
+                            <Form.Label>
                               Name <sup>*</sup>
-                            </ControlLabel>
+                            </Form.Label>
                             <FormInputControl
                               type="text"
                               defaultValue={this.state.name}
@@ -275,13 +262,11 @@ class RolesDetail extends React.Component {
                         <Col md={9}>
                           <FormGroup
                             controlId="description"
-                            validationState={
-                              this.state.descriptionError ? "error" : null
-                            }
+                            validationState={this.state.descriptionError ? 'error' : null}
                           >
-                            <ControlLabel>
+                            <Form.Label>
                               Description <sup>*</sup>
-                            </ControlLabel>
+                            </Form.Label>
                             <FormInputControl
                               type="text"
                               defaultValue={this.state.description}
@@ -305,13 +290,13 @@ class RolesDetail extends React.Component {
               {(() => {
                 if (this.state.loading) {
                   return (
-                    <div style={{ textAlign: "center" }}>
+                    <div style={{ textAlign: 'center' }}>
                       <Spinner />
                     </div>
                   );
                 }
 
-                var permissions = _.sortBy(this.props.permissions, "name");
+                var permissions = _.sortBy(this.props.permissions, 'name');
 
                 return (
                   <Table striped condensed hover bordered>
@@ -323,20 +308,14 @@ class RolesDetail extends React.Component {
                     </thead>
                     <tbody>
                       {_.map(permissions, (permission) => {
-                        var selected =
-                          this.state.selectedPermissionIds.indexOf(
-                            permission.id
-                          ) !== -1;
+                        var selected = this.state.selectedPermissionIds.indexOf(permission.id) !== -1;
                         return (
                           <tr
                             key={permission.id}
-                            className={selected ? "selected" : ""}
-                            onClick={this.permissionClicked.bind(
-                              this,
-                              permission
-                            )}
+                            className={selected ? 'selected' : ''}
+                            onClick={this.permissionClicked.bind(this, permission)}
                           >
-                            <td style={{ whiteSpace: "nowrap" }}>
+                            <td style={{ whiteSpace: 'nowrap' }}>
                               <strong>{permission.name}</strong>
                             </td>
                             <td>{permission.description}</td>

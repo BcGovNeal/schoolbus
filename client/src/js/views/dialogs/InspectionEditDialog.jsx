@@ -1,32 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from "react-bootstrap";
-import { Form, FormGroup, ControlLabel, HelpBlock } from "react-bootstrap";
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 
-import _ from "lodash";
-import Moment from "moment";
+import _ from 'lodash';
+import Moment from 'moment';
 
-import * as Api from "../../api";
-import * as Constant from "../../constants";
+import * as Api from '../../api';
+import * as Constant from '../../constants';
 
-import DateControl from "../../components/DateControl.jsx";
-import DropdownControl from "../../components/DropdownControl.jsx";
-import EditDialog from "../../components/EditDialog.jsx";
-import FilterDropdown from "../../components/FilterDropdown.jsx";
-import FormInputControl from "../../components/FormInputControl.jsx";
-import Spinner from "../../components/Spinner.jsx";
+import DateControl from '../../components/DateControl.jsx';
+import DropdownControl from '../../components/DropdownControl.jsx';
+import EditDialog from '../../components/EditDialog.jsx';
+import FilterDropdown from '../../components/FilterDropdown.jsx';
+import FormInputControl from '../../components/FormInputControl.jsx';
+import Spinner from '../../components/Spinner.jsx';
 
-import {
-  today,
-  businessDayOnOrBefore,
-  daysFromToday,
-  isValidDate,
-  toZuluTime,
-} from "../../utils/date";
-import { isBlank } from "../../utils/string";
+import { today, businessDayOnOrBefore, daysFromToday, isValidDate, toZuluTime } from '../../utils/date';
+import { isBlank } from '../../utils/string';
 
 class InspectionEditDialog extends React.Component {
   static propTypes = {
@@ -44,26 +38,18 @@ class InspectionEditDialog extends React.Component {
     this.state = {
       loading: false,
 
-      inspectorId: props.inspection.inspector
-        ? props.inspection.inspector.id
-        : 0,
+      inspectorId: props.inspection.inspector ? props.inspection.inspector.id : 0,
       inspectionDate: props.inspection.inspectionDate || today(),
-      inspectionTypeCode:
-        props.inspection.inspectionTypeCode ||
-        Constant.INSPECTION_TYPE_ANNUAL,
-      inspectionResultCode: props.inspection.inspectionResultCode || "",
-      nextInspectionDate: isNew
-        ? ""
-        : props.inspection.schoolBus
-        ? props.inspection.schoolBus.nextInspectionDate
-        : "",
+      inspectionTypeCode: props.inspection.inspectionTypeCode || Constant.INSPECTION_TYPE_ANNUAL,
+      inspectionResultCode: props.inspection.inspectionResultCode || '',
+      nextInspectionDate: isNew ? '' : props.inspection.schoolBus ? props.inspection.schoolBus.nextInspectionDate : '',
       nextInspectionTypeCode: isNew
-        ? ""
+        ? ''
         : props.inspection.schoolBus
         ? props.inspection.schoolBus.nextInspectionTypeCode
-        : "",
-      notes: props.inspection.notes || "",
-      ripInspectionId: props.inspection.ripInspectionId || "",
+        : '',
+      notes: props.inspection.notes || '',
+      ripInspectionId: props.inspection.ripInspectionId || '',
 
       inspectionDateError: false,
       inspectorIdError: false,
@@ -87,24 +73,17 @@ class InspectionEditDialog extends React.Component {
     var inspectionDate = Moment(this.state.inspectionDate);
     if (inspectionDate && inspectionDate.isValid()) {
       // Remove time elements from date
-      inspectionDate.startOf("d");
-      var nextDate = "";
-      if (
-        this.state.inspectionResultCode === Constant.INSPECTION_RESULT_FAILED
-      ) {
+      inspectionDate.startOf('d');
+      var nextDate = '';
+      if (this.state.inspectionResultCode === Constant.INSPECTION_RESULT_FAILED) {
         // 30 days from date
-        nextDate = businessDayOnOrBefore(inspectionDate.add(30, "d"));
-      } else if (
-        this.state.inspectionResultCode === Constant.INSPECTION_RESULT_PASSED
-      ) {
+        nextDate = businessDayOnOrBefore(inspectionDate.add(30, 'd'));
+      } else if (this.state.inspectionResultCode === Constant.INSPECTION_RESULT_PASSED) {
         // A year from date
-        nextDate = businessDayOnOrBefore(inspectionDate.add(1, "y"));
-      } else if (
-        this.state.inspectionResultCode ===
-        Constant.INSPECTION_RESULT_OUT_OF_SERVICE
-      ) {
+        nextDate = businessDayOnOrBefore(inspectionDate.add(1, 'y'));
+      } else if (this.state.inspectionResultCode === Constant.INSPECTION_RESULT_OUT_OF_SERVICE) {
         // Clear the date
-        nextDate = "";
+        nextDate = '';
       }
 
       this.updateState({ nextInspectionDate: nextDate });
@@ -121,12 +100,9 @@ class InspectionEditDialog extends React.Component {
   };
 
   resultCodeChanged = (resultCode) => {
-    var typeCode = "";
+    var typeCode = '';
 
-    if (
-      resultCode === Constant.INSPECTION_RESULT_FAILED ||
-      resultCode === Constant.INSPECTION_RESULT_OUT_OF_SERVICE
-    ) {
+    if (resultCode === Constant.INSPECTION_RESULT_FAILED || resultCode === Constant.INSPECTION_RESULT_OUT_OF_SERVICE) {
       typeCode = Constant.INSPECTION_TYPE_REINSPECTION;
     } else if (resultCode === Constant.INSPECTION_RESULT_PASSED) {
       typeCode = Constant.INSPECTION_TYPE_ANNUAL;
@@ -142,37 +118,22 @@ class InspectionEditDialog extends React.Component {
   };
 
   didChange = () => {
-    if (
-      this.state.inspectorId !==
-      (this.props.inspection.inspector
-        ? this.props.inspection.inspector.id
-        : "")
-    ) {
+    if (this.state.inspectorId !== (this.props.inspection.inspector ? this.props.inspection.inspector.id : '')) {
       return true;
     }
     if (this.state.inspectionDate !== this.props.inspection.inspectionDate) {
       return true;
     }
-    if (
-      this.state.inspectionTypeCode !== this.props.inspection.inspectionTypeCode
-    ) {
+    if (this.state.inspectionTypeCode !== this.props.inspection.inspectionTypeCode) {
       return true;
     }
-    if (
-      this.state.inspectionResultCode !==
-      this.props.inspection.inspectionResultCode
-    ) {
+    if (this.state.inspectionResultCode !== this.props.inspection.inspectionResultCode) {
       return true;
     }
-    if (
-      this.state.nextInspectionDate !== this.props.inspection.nextInspectionDate
-    ) {
+    if (this.state.nextInspectionDate !== this.props.inspection.nextInspectionDate) {
       return true;
     }
-    if (
-      this.state.nextInspectionTypeCode !==
-      this.props.inspection.nextInspectionTypeCode
-    ) {
+    if (this.state.nextInspectionTypeCode !== this.props.inspection.nextInspectionTypeCode) {
       return true;
     }
     if (this.state.notes !== this.props.inspection.notes) {
@@ -195,80 +156,68 @@ class InspectionEditDialog extends React.Component {
 
     var valid = true;
     if (isBlank(this.state.inspectionDate)) {
-      this.setState({ inspectionDateError: "Inspection date is required" });
+      this.setState({ inspectionDateError: 'Inspection date is required' });
       valid = false;
     } else if (!isValidDate(this.state.inspectionDate)) {
-      this.setState({ inspectionDateError: "Inspection date not valid" });
+      this.setState({ inspectionDateError: 'Inspection date not valid' });
       valid = false;
     } else if (daysFromToday(this.state.inspectionDate) > 0) {
       this.setState({
-        inspectionDateError: "Inspection date must be today or earlier",
+        inspectionDateError: 'Inspection date must be today or earlier',
       });
       valid = false;
     }
 
     if (isBlank(this.state.inspectorId)) {
-      this.setState({ inspectorIdError: "Inspector is required" });
+      this.setState({ inspectorIdError: 'Inspector is required' });
       valid = false;
     }
 
     if (isBlank(this.state.inspectionResultCode)) {
-      this.setState({ inspectionResultCodeError: "Result is required" });
+      this.setState({ inspectionResultCodeError: 'Result is required' });
       valid = false;
     }
 
     if (isBlank(this.state.nextInspectionDate)) {
       this.setState({
-        nextInspectionDateError: "Next inspection date is required",
+        nextInspectionDateError: 'Next inspection date is required',
       });
       valid = false;
     } else if (!isValidDate(this.state.nextInspectionDate)) {
       this.setState({
-        nextInspectionDateError: "Next inspection date not valid",
+        nextInspectionDateError: 'Next inspection date not valid',
       });
       valid = false;
     } else if (isValidDate(this.state.inspectionDate)) {
       // Remove time elements from dates so day/month/year math works.
-      var inspectionDate = Moment(this.state.inspectionDate).startOf("d");
-      var nextInspectionDate = Moment(this.state.nextInspectionDate).startOf(
-        "d"
-      );
-      if (
-        this.state.nextInspectionTypeCode ===
-        Constant.INSPECTION_TYPE_REINSPECTION
-      ) {
-        var diff = nextInspectionDate.diff(inspectionDate, "d");
+      var inspectionDate = Moment(this.state.inspectionDate).startOf('d');
+      var nextInspectionDate = Moment(this.state.nextInspectionDate).startOf('d');
+      if (this.state.nextInspectionTypeCode === Constant.INSPECTION_TYPE_REINSPECTION) {
+        var diff = nextInspectionDate.diff(inspectionDate, 'd');
         if (diff <= 0) {
           // Cannot be before or on the date of the inspection.
           this.setState({
-            nextInspectionDateError: "Re-inspection must be after inspection",
+            nextInspectionDateError: 'Re-inspection must be after inspection',
           });
           valid = false;
         } else if (diff > 30) {
           // Cannot be more than 30 days from the date of the inspection.
           this.setState({
-            nextInspectionDateError:
-              "Re-inspection must be within 30 days of inspection",
+            nextInspectionDateError: 'Re-inspection must be within 30 days of inspection',
           });
           valid = false;
         }
-      } else if (
-        this.state.nextInspectionTypeCode === Constant.INSPECTION_TYPE_ANNUAL
-      ) {
-        if (nextInspectionDate.diff(inspectionDate, "M") < 9) {
+      } else if (this.state.nextInspectionTypeCode === Constant.INSPECTION_TYPE_ANNUAL) {
+        if (nextInspectionDate.diff(inspectionDate, 'M') < 9) {
           // Cannot be less than 9 months from the date of the inspection,
           this.setState({
-            nextInspectionDateError:
-              "Annual inspection must be at least 9 months after inspection",
+            nextInspectionDateError: 'Annual inspection must be at least 9 months after inspection',
           });
           valid = false;
-        } else if (
-          nextInspectionDate.subtract(1, "d").diff(inspectionDate, "y") > 0
-        ) {
+        } else if (nextInspectionDate.subtract(1, 'd').diff(inspectionDate, 'y') > 0) {
           // Cannot be more than the one year from the Date of the Inspection.
           this.setState({
-            nextInspectionDateError:
-              "Annual inspection must be within a year of inspection",
+            nextInspectionDateError: 'Annual inspection must be within a year of inspection',
           });
           valid = false;
         }
@@ -295,11 +244,10 @@ class InspectionEditDialog extends React.Component {
   };
 
   render() {
-    var inspectors = _.sortBy(this.props.inspectors, "name");
+    var inspectors = _.sortBy(this.props.inspectors, 'name');
 
     // Read-only if the user cannot edit the inspection
-    var isReadOnly =
-      !this.props.inspection.canEdit && this.props.inspection.id !== 0;
+    var isReadOnly = !this.props.inspection.canEdit && this.props.inspection.id !== 0;
 
     return (
       <EditDialog
@@ -315,7 +263,7 @@ class InspectionEditDialog extends React.Component {
         {(() => {
           if (this.state.loading) {
             return (
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: 'center' }}>
                 <Spinner />
               </div>
             );
@@ -326,14 +274,10 @@ class InspectionEditDialog extends React.Component {
               <Grid fluid>
                 <Row>
                   <Col md={4}>
-                    <FormGroup
-                      validationState={
-                        this.state.inspectionDateError ? "error" : null
-                      }
-                    >
-                      <ControlLabel>
+                    <FormGroup validationState={this.state.inspectionDateError ? 'error' : null}>
+                      <Form.Label>
                         Date <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <DateControl
                         id="inspectionDate"
                         date={this.state.inspectionDate}
@@ -346,15 +290,10 @@ class InspectionEditDialog extends React.Component {
                     </FormGroup>
                   </Col>
                   <Col md={5}>
-                    <FormGroup
-                      controlId="inspectorId"
-                      validationState={
-                        this.state.inspectorIdError ? "error" : null
-                      }
-                    >
-                      <ControlLabel>
+                    <FormGroup controlId="inspectorId" validationState={this.state.inspectorIdError ? 'error' : null}>
+                      <Form.Label>
                         Inspector <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <FilterDropdown
                         id="inspectorId"
                         placeholder="None"
@@ -370,13 +309,11 @@ class InspectionEditDialog extends React.Component {
                   <Col md={3}>
                     <FormGroup
                       controlId="inspectionResultCode"
-                      validationState={
-                        this.state.inspectionResultCodeError ? "error" : null
-                      }
+                      validationState={this.state.inspectionResultCodeError ? 'error' : null}
                     >
-                      <ControlLabel>
+                      <Form.Label>
                         Result <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <DropdownControl
                         id="inspectionResultCode"
                         title={this.state.inspectionResultCode}
@@ -390,22 +327,16 @@ class InspectionEditDialog extends React.Component {
                           Constant.INSPECTION_RESULT_OUT_OF_SERVICE,
                         ]}
                       />
-                      <HelpBlock>
-                        {this.state.inspectionResultCodeError}
-                      </HelpBlock>
+                      <HelpBlock>{this.state.inspectionResultCodeError}</HelpBlock>
                     </FormGroup>
                   </Col>
                 </Row>
                 <Row>
                   <Col md={4}>
-                    <FormGroup
-                      validationState={
-                        this.state.nextInspectionDateError ? "error" : null
-                      }
-                    >
-                      <ControlLabel>
+                    <FormGroup validationState={this.state.nextInspectionDateError ? 'error' : null}>
+                      <Form.Label>
                         Next Inspection Date <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <DateControl
                         id="nextInspectionDate"
                         date={this.state.nextInspectionDate}
@@ -414,12 +345,10 @@ class InspectionEditDialog extends React.Component {
                         placeholder="mm/dd/yyyy"
                         title="next inspection date"
                       />
-                      <HelpBlock>
-                        {this.state.nextInspectionDateError}
-                      </HelpBlock>
+                      <HelpBlock>{this.state.nextInspectionDateError}</HelpBlock>
                     </FormGroup>
                     <FormGroup controlId="ripInspectionId">
-                      <ControlLabel>RIP Inspection ID</ControlLabel>
+                      <Form.Label>RIP Inspection ID</Form.Label>
                       <FormInputControl
                         type="text"
                         defaultValue={this.state.ripInspectionId}
@@ -430,7 +359,7 @@ class InspectionEditDialog extends React.Component {
                   </Col>
                   <Col md={8}>
                     <FormGroup controlId="notes">
-                      <ControlLabel>Comments</ControlLabel>
+                      <Form.Label>Comments</Form.Label>
                       <FormInputControl
                         componentClass="textarea"
                         value={this.state.notes}

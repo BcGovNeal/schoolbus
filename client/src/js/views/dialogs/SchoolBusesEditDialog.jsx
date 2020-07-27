@@ -1,76 +1,69 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from "react-bootstrap";
-import { Radio, Button, Glyphicon } from "react-bootstrap";
-import {
-  Form,
-  FormControl,
-  FormGroup,
-  HelpBlock,
-  ControlLabel,
-} from "react-bootstrap";
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Radio, Button, Glyphicon } from 'react-bootstrap';
+import { Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
 
-import _ from "lodash";
-import Promise from "bluebird";
+import _ from 'lodash';
+import Promise from 'bluebird';
 
-import * as Api from "../../api";
-import * as Constant from "../../constants";
+import * as Api from '../../api';
+import * as Constant from '../../constants';
 
-import Confirm from "../../components/Confirm.jsx";
-import DropdownControl from "../../components/DropdownControl.jsx";
-import EditDialog from "../../components/EditDialog.jsx";
-import FilterDropdown from "../../components/FilterDropdown.jsx";
-import FormInputControl from "../../components/FormInputControl.jsx";
-import OverlayTrigger from "../../components/OverlayTrigger.jsx";
-import Spinner from "../../components/Spinner.jsx";
+import Confirm from '../../components/Confirm.jsx';
+import DropdownControl from '../../components/DropdownControl.jsx';
+import EditDialog from '../../components/EditDialog.jsx';
+import FilterDropdown from '../../components/FilterDropdown.jsx';
+import FormInputControl from '../../components/FormInputControl.jsx';
+import OverlayTrigger from '../../components/OverlayTrigger.jsx';
+import Spinner from '../../components/Spinner.jsx';
 
-import { isBlank } from "../../utils/string";
+import { isBlank } from '../../utils/string';
 
-const PERMIT_CLASS_TYPE_1 = "Type 1: Yellow and Black School Bus";
-const PERMIT_CLASS_TYPE_2 = "Type 2: Special Activity Bus";
-const PERMIT_CLASS_TYPE_3 = "Type 3: Special Vehicle";
+const PERMIT_CLASS_TYPE_1 = 'Type 1: Yellow and Black School Bus';
+const PERMIT_CLASS_TYPE_2 = 'Type 2: Special Activity Bus';
+const PERMIT_CLASS_TYPE_3 = 'Type 3: Special Vehicle';
 
-const RESTRICTION_NON_SCHEDULED_ONLY = "Non-Scheduled Transportation Only";
+const RESTRICTION_NON_SCHEDULED_ONLY = 'Non-Scheduled Transportation Only';
 
 const BODY_TYPES = [
   {
-    id: "Yellow and Black",
-    name: "Yellow and Black",
+    id: 'Yellow and Black',
+    name: 'Yellow and Black',
     hoverText:
       'Means a bus that is identified with the colour yellow and black and on the date of its manufacture conformed to the safety standards under the Motor Vehicle Safety Act (Canada) and the standards made by the Canadian Standards Association numbered CSA D250, "School Buses" that were applicable to school buses on that date.',
   },
   {
-    id: "Bus",
-    name: "Bus",
+    id: 'Bus',
+    name: 'Bus',
     hoverText:
-      "Means a motor vehicle designed to carry more than 10 persons, but does not include a yellow and black or coach bus.",
+      'Means a motor vehicle designed to carry more than 10 persons, but does not include a yellow and black or coach bus.',
   },
   {
-    id: "Coach Bus",
-    name: "Coach Bus",
-    hoverText:
-      "Means a motor vehicle designed to provide intercity, commuter or charter service.",
+    id: 'Coach Bus',
+    name: 'Coach Bus',
+    hoverText: 'Means a motor vehicle designed to provide intercity, commuter or charter service.',
   },
   {
-    id: "Mobility Aid",
-    name: "Mobility Aid",
+    id: 'Mobility Aid',
+    name: 'Mobility Aid',
     hoverText:
-      "Means a motor vehicle designed to carry persons that is designed or modified for transportation of non-ambulatory persons.",
+      'Means a motor vehicle designed to carry persons that is designed or modified for transportation of non-ambulatory persons.',
   },
   {
-    id: "Van",
-    name: "Van",
+    id: 'Van',
+    name: 'Van',
     hoverText:
-      "Means a vehicle that is designed to carry more than 10 persons, but the body style may not be identifiable as a bus, such as a 15 passenger van.",
+      'Means a vehicle that is designed to carry more than 10 persons, but the body style may not be identifiable as a bus, such as a 15 passenger van.',
   },
   {
-    id: "Other",
-    name: "Other",
+    id: 'Other',
+    name: 'Other',
     hoverText:
-      "Means a vehicle that requires a school bus permit and is not identified in the above listed body descriptions.",
+      'Means a vehicle that requires a school bus permit and is not identified in the above listed body descriptions.',
   },
 ];
 
@@ -95,40 +88,28 @@ class SchoolBusesEditDialog extends React.Component {
     isNew: this.props.schoolBus.id === 0,
 
     status: this.props.schoolBus.status || Constant.STATUS_ACTIVE,
-    ownerId: this.props.schoolBus.schoolBusOwner
-      ? this.props.schoolBus.schoolBusOwner.id
-      : 0,
-    districtId: this.props.schoolBus.district
-      ? this.props.schoolBus.district.id
-      : 0,
-    inspectorId: this.props.schoolBus.inspector
-      ? this.props.schoolBus.inspector.id
-      : 0,
+    ownerId: this.props.schoolBus.schoolBusOwner ? this.props.schoolBus.schoolBusOwner.id : 0,
+    districtId: this.props.schoolBus.district ? this.props.schoolBus.district.id : 0,
+    inspectorId: this.props.schoolBus.inspector ? this.props.schoolBus.inspector.id : 0,
 
-    address1: this.props.schoolBus.homeTerminalAddress1 || "",
-    address2: this.props.schoolBus.homeTerminalAddress2 || "",
-    cityId: this.props.schoolBus.homeTerminalCity
-      ? this.props.schoolBus.homeTerminalCity.id
-      : 0,
-    province: this.props.schoolBus.homeTerminalProvince || "BC",
-    postalCode: this.props.schoolBus.homeTerminalPostalCode || "",
-    description: this.props.schoolBus.homeTerminalComment || "",
+    address1: this.props.schoolBus.homeTerminalAddress1 || '',
+    address2: this.props.schoolBus.homeTerminalAddress2 || '',
+    cityId: this.props.schoolBus.homeTerminalCity ? this.props.schoolBus.homeTerminalCity.id : 0,
+    province: this.props.schoolBus.homeTerminalProvince || 'BC',
+    postalCode: this.props.schoolBus.homeTerminalPostalCode || '',
+    description: this.props.schoolBus.homeTerminalComment || '',
 
-    permitClassCode:
-      this.props.schoolBus.permitClassCode || PERMIT_CLASS_TYPE_1,
+    permitClassCode: this.props.schoolBus.permitClassCode || PERMIT_CLASS_TYPE_1,
     bodyTypeCode: this.props.schoolBus.bodyTypeCode || BODY_TYPES[0].id,
-    restrictionsText: this.props.schoolBus.restrictionsText || "",
+    restrictionsText: this.props.schoolBus.restrictionsText || '',
     disableRestrictionsText: true,
 
-    schoolDistrictId: this.props.schoolBus.schoolDistrict
-      ? this.props.schoolBus.schoolDistrict.id
-      : 0,
+    schoolDistrictId: this.props.schoolBus.schoolDistrict ? this.props.schoolBus.schoolDistrict.id : 0,
     isIndependentSchool: this.props.schoolBus.isIndependentSchool || false,
-    independentSchoolName: this.props.schoolBus.independentSchoolName || "",
+    independentSchoolName: this.props.schoolBus.independentSchoolName || '',
 
-    unitNumber: this.props.schoolBus.unitNumber || "",
-    schoolBusSeatingCapacity:
-      this.props.schoolBus.schoolBusSeatingCapacity || 0,
+    unitNumber: this.props.schoolBus.unitNumber || '',
+    schoolBusSeatingCapacity: this.props.schoolBus.schoolBusSeatingCapacity || 0,
     mobilityAidCapacity: this.props.schoolBus.mobilityAidCapacity || 0,
 
     schoolDistrictIdError: false,
@@ -168,7 +149,7 @@ class SchoolBusesEditDialog extends React.Component {
   };
 
   permitClassCodeChanged = (permitClassCode) => {
-    var restriction = "";
+    var restriction = '';
 
     if (permitClassCode === PERMIT_CLASS_TYPE_2) {
       restriction = RESTRICTION_NON_SCHEDULED_ONLY;
@@ -183,7 +164,7 @@ class SchoolBusesEditDialog extends React.Component {
   isIndependentSchoolChanged = (value) => {
     this.setState({
       isIndependentSchool: value,
-      independentSchoolName: value ? this.state.independentSchoolName : "",
+      independentSchoolName: value ? this.state.independentSchoolName : '',
     });
   };
 
@@ -234,37 +215,23 @@ class SchoolBusesEditDialog extends React.Component {
       return true;
     }
 
-    if (
-      this.state.schoolDistrictId !== this.props.schoolBus.schoolDistrict.id
-    ) {
+    if (this.state.schoolDistrictId !== this.props.schoolBus.schoolDistrict.id) {
       return true;
     }
-    if (
-      this.state.isIndependentSchool !==
-      this.props.schoolBus.isIndependentSchool
-    ) {
+    if (this.state.isIndependentSchool !== this.props.schoolBus.isIndependentSchool) {
       return true;
     }
-    if (
-      this.state.independentSchoolName !==
-      this.props.schoolBus.independentSchoolName
-    ) {
+    if (this.state.independentSchoolName !== this.props.schoolBus.independentSchoolName) {
       return true;
     }
 
     if (this.state.unitNumber !== this.props.schoolBus.unitNumber) {
       return true;
     }
-    if (
-      this.state.schoolBusSeatingCapacity !==
-      this.props.schoolBus.schoolBusSeatingCapacity
-    ) {
+    if (this.state.schoolBusSeatingCapacity !== this.props.schoolBus.schoolBusSeatingCapacity) {
       return true;
     }
-    if (
-      this.state.mobilityAidCapacity !==
-      this.props.schoolBus.mobilityAidCapacity
-    ) {
+    if (this.state.mobilityAidCapacity !== this.props.schoolBus.mobilityAidCapacity) {
       return true;
     }
 
@@ -281,20 +248,20 @@ class SchoolBusesEditDialog extends React.Component {
     var valid = true;
 
     if (!this.state.schoolDistrictId) {
-      this.setState({ schoolDistrictIdError: "School District is required" });
+      this.setState({ schoolDistrictIdError: 'School District is required' });
       valid = false;
     }
 
     if (isBlank(this.state.schoolBusSeatingCapacity)) {
       this.setState({
-        schoolBusSeatingCapacityError: "Seating capacity is required",
+        schoolBusSeatingCapacityError: 'Seating capacity is required',
       });
       valid = false;
     }
 
     if (isBlank(this.state.mobilityAidCapacity)) {
       this.setState({
-        mobilityAidCapacityError: "Mobility aid capacity is required",
+        mobilityAidCapacityError: 'Mobility aid capacity is required',
       });
       valid = false;
     }
@@ -330,15 +297,13 @@ class SchoolBusesEditDialog extends React.Component {
   };
 
   render() {
-    var districts = _.sortBy(this.props.districts, "name");
-    var inspectors = _.sortBy(this.props.inspectors, "name");
-    var cities = _.sortBy(this.props.cities, "name");
-    var schoolDistricts = _.sortBy(this.props.schoolDistricts, "name");
+    var districts = _.sortBy(this.props.districts, 'name');
+    var inspectors = _.sortBy(this.props.inspectors, 'name');
+    var cities = _.sortBy(this.props.cities, 'name');
+    var schoolDistricts = _.sortBy(this.props.schoolDistricts, 'name');
 
     // Just the current owner if we're adding a new bus
-    var owners = this.state.isNew
-      ? [this.props.owner]
-      : _.sortBy(this.props.owners, "name");
+    var owners = this.state.isNew ? [this.props.owner] : _.sortBy(this.props.owners, 'name');
 
     return (
       <EditDialog
@@ -353,15 +318,13 @@ class SchoolBusesEditDialog extends React.Component {
           <strong>
             School Bus
             <span>
-              Registration:{" "}
-              <small>{this.props.schoolBus.icbcRegistrationNumber}</small>
+              Registration: <small>{this.props.schoolBus.icbcRegistrationNumber}</small>
             </span>
             <span>
               Plate: <small>{this.props.schoolBus.licencePlateNumber}</small>
             </span>
             <span>
-              VIN:{" "}
-              <small>{this.props.schoolBus.vehicleIdentificationNumber}</small>
+              VIN: <small>{this.props.schoolBus.vehicleIdentificationNumber}</small>
             </span>
           </strong>
         }
@@ -369,7 +332,7 @@ class SchoolBusesEditDialog extends React.Component {
         {(() => {
           if (this.state.loading) {
             return (
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: 'center' }}>
                 <Spinner />
               </div>
             );
@@ -381,21 +344,18 @@ class SchoolBusesEditDialog extends React.Component {
                 <Row>
                   <Col md={3}>
                     <FormGroup controlId="status">
-                      <ControlLabel>Status</ControlLabel>
+                      <Form.Label>Status</Form.Label>
                       <DropdownControl
                         id="status"
                         title={this.state.status}
                         updateState={this.updateState}
-                        items={[
-                          Constant.STATUS_ACTIVE,
-                          Constant.STATUS_ARCHIVED,
-                        ]}
+                        items={[Constant.STATUS_ACTIVE, Constant.STATUS_ARCHIVED]}
                       />
                     </FormGroup>
                   </Col>
                   <Col md={3}>
                     <FormGroup controlId="ownerId_search">
-                      <ControlLabel>Owner</ControlLabel>
+                      <Form.Label>Owner</Form.Label>
                       <FilterDropdown
                         id="ownerId"
                         placeholder="None"
@@ -408,7 +368,7 @@ class SchoolBusesEditDialog extends React.Component {
                   </Col>
                   <Col md={3}>
                     <FormGroup controlId="districtId_search">
-                      <ControlLabel>District</ControlLabel>
+                      <Form.Label>District</Form.Label>
                       <FilterDropdown
                         id="districtId"
                         placeholder="None"
@@ -421,7 +381,7 @@ class SchoolBusesEditDialog extends React.Component {
                   </Col>
                   <Col md={3}>
                     <FormGroup controlId="inspectorId_search">
-                      <ControlLabel>Inspector</ControlLabel>
+                      <Form.Label>Inspector</Form.Label>
                       <FilterDropdown
                         id="inspectorId"
                         placeholder="None"
@@ -436,7 +396,7 @@ class SchoolBusesEditDialog extends React.Component {
                 <Row>
                   <Col md={3}>
                     <FormGroup controlId="address1">
-                      <ControlLabel>Home Terminal Address 1</ControlLabel>
+                      <Form.Label>Home Terminal Address 1</Form.Label>
                       <FormInputControl
                         type="text"
                         defaultValue={this.state.address1}
@@ -449,17 +409,13 @@ class SchoolBusesEditDialog extends React.Component {
                   </Col>
                   <Col md={3}>
                     <FormGroup controlId="address2">
-                      <ControlLabel>Address 2</ControlLabel>
-                      <FormInputControl
-                        type="text"
-                        defaultValue={this.state.address2}
-                        updateState={this.updateState}
-                      />
+                      <Form.Label>Address 2</Form.Label>
+                      <FormInputControl type="text" defaultValue={this.state.address2} updateState={this.updateState} />
                     </FormGroup>
                   </Col>
                   <Col md={3}>
                     <FormGroup controlId="cityId_search">
-                      <ControlLabel>City</ControlLabel>
+                      <Form.Label>City</Form.Label>
                       <FilterDropdown
                         id="cityId"
                         placeholder="None"
@@ -472,15 +428,13 @@ class SchoolBusesEditDialog extends React.Component {
                   </Col>
                   <Col md={1}>
                     <FormGroup controlId="province">
-                      <ControlLabel>Province</ControlLabel>
-                      <FormControl.Static>
-                        {this.state.province}
-                      </FormControl.Static>
+                      <Form.Label>Province</Form.Label>
+                      <FormControl.Static>{this.state.province}</FormControl.Static>
                     </FormGroup>
                   </Col>
                   <Col md={2}>
                     <FormGroup controlId="postalCode">
-                      <ControlLabel>Postal Code</ControlLabel>
+                      <Form.Label>Postal Code</Form.Label>
                       <FormInputControl
                         type="text"
                         defaultValue={this.state.postalCode}
@@ -492,7 +446,7 @@ class SchoolBusesEditDialog extends React.Component {
                 <Row>
                   <Col md={12}>
                     <FormGroup controlId="description">
-                      <ControlLabel>Home Terminal Description</ControlLabel>
+                      <Form.Label>Home Terminal Description</Form.Label>
                       <FormInputControl
                         componentClass="textarea"
                         defaultValue={this.state.description}
@@ -506,16 +460,12 @@ class SchoolBusesEditDialog extends React.Component {
                     <Row>
                       <Col>
                         <FormGroup controlId="permitClassCode">
-                          <ControlLabel>Permit Class</ControlLabel>
+                          <Form.Label>Permit Class</Form.Label>
                           <DropdownControl
                             id="permitClassCode"
                             title={this.state.permitClassCode}
                             onSelect={this.permitClassCodeChanged}
-                            items={[
-                              PERMIT_CLASS_TYPE_1,
-                              PERMIT_CLASS_TYPE_2,
-                              PERMIT_CLASS_TYPE_3,
-                            ]}
+                            items={[PERMIT_CLASS_TYPE_1, PERMIT_CLASS_TYPE_2, PERMIT_CLASS_TYPE_3]}
                           />
                         </FormGroup>
                       </Col>
@@ -523,7 +473,7 @@ class SchoolBusesEditDialog extends React.Component {
                     <Row>
                       <Col>
                         <FormGroup controlId="bodyTypeCode">
-                          <ControlLabel>Body Description</ControlLabel>
+                          <Form.Label>Body Description</Form.Label>
                           <DropdownControl
                             id="bodyTypeCode"
                             selectedId={this.state.bodyTypeCode}
@@ -537,20 +487,17 @@ class SchoolBusesEditDialog extends React.Component {
                   <Col md={7}>
                     <FormGroup controlId="restrictionsText">
                       <div>
-                        <ControlLabel>Restrictions</ControlLabel>
+                        <Form.Label>Restrictions</Form.Label>
                         <span className="pull-right">
                           <OverlayTrigger
                             trigger="click"
                             placement="top"
                             rootClose
                             overlay={
-                              <Confirm
-                                title="Edit Permit Restrictions Text?"
-                                onConfirm={this.editRestrictionsText}
-                              >
+                              <Confirm title="Edit Permit Restrictions Text?" onConfirm={this.editRestrictionsText}>
                                 <div>
-                                  The permit restrictions text should be changed
-                                  only in rare circumstances. Are you sure?
+                                  The permit restrictions text should be changed only in rare circumstances. Are you
+                                  sure?
                                 </div>
                               </Confirm>
                             }
@@ -575,13 +522,11 @@ class SchoolBusesEditDialog extends React.Component {
                   <Col md={3}>
                     <FormGroup
                       controlId="schoolDistrictId_search"
-                      validationState={
-                        this.state.schoolDistrictIdError ? "error" : null
-                      }
+                      validationState={this.state.schoolDistrictIdError ? 'error' : null}
                     >
-                      <ControlLabel>
+                      <Form.Label>
                         School District <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <FilterDropdown
                         id="schoolDistrictId"
                         placeholder="None"
@@ -596,24 +541,18 @@ class SchoolBusesEditDialog extends React.Component {
                   </Col>
                   <Col md={2}>
                     <FormGroup>
-                      <ControlLabel>Independent School</ControlLabel>
+                      <Form.Label>Independent School</Form.Label>
                       <FormInputControl componentClass="div">
                         <Radio
                           inline
-                          onChange={this.isIndependentSchoolChanged.bind(
-                            this,
-                            true
-                          )}
+                          onChange={this.isIndependentSchoolChanged.bind(this, true)}
                           checked={this.state.isIndependentSchool}
                         >
                           Yes
-                        </Radio>{" "}
+                        </Radio>{' '}
                         <Radio
                           inline
-                          onChange={this.isIndependentSchoolChanged.bind(
-                            this,
-                            false
-                          )}
+                          onChange={this.isIndependentSchoolChanged.bind(this, false)}
                           checked={!this.state.isIndependentSchool}
                         >
                           No
@@ -623,7 +562,7 @@ class SchoolBusesEditDialog extends React.Component {
                   </Col>
                   <Col md={5}>
                     <FormGroup controlId="independentSchoolName">
-                      <ControlLabel>Independent School Name</ControlLabel>
+                      <Form.Label>Independent School Name</Form.Label>
                       <FormInputControl
                         type="text"
                         value={this.state.independentSchoolName}
@@ -636,7 +575,7 @@ class SchoolBusesEditDialog extends React.Component {
                 <Row>
                   <Col md={3}>
                     <FormGroup controlId="unitNumber">
-                      <ControlLabel>Unit Number</ControlLabel>
+                      <Form.Label>Unit Number</Form.Label>
                       <FormInputControl
                         type="text"
                         defaultValue={this.state.unitNumber}
@@ -647,43 +586,33 @@ class SchoolBusesEditDialog extends React.Component {
                   <Col md={2}>
                     <FormGroup
                       controlId="schoolBusSeatingCapacity"
-                      validationState={
-                        this.state.schoolBusSeatingCapacityError
-                          ? "error"
-                          : null
-                      }
+                      validationState={this.state.schoolBusSeatingCapacityError ? 'error' : null}
                     >
-                      <ControlLabel>
+                      <Form.Label>
                         Seating Capacity <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <FormInputControl
                         type="number"
                         defaultValue={this.state.schoolBusSeatingCapacity}
                         updateState={this.updateState}
                       />
-                      <HelpBlock>
-                        {this.state.schoolBusSeatingCapacityError}
-                      </HelpBlock>
+                      <HelpBlock>{this.state.schoolBusSeatingCapacityError}</HelpBlock>
                     </FormGroup>
                   </Col>
                   <Col md={3}>
                     <FormGroup
                       controlId="mobilityAidCapacity"
-                      validationState={
-                        this.state.mobilityAidCapacityError ? "error" : null
-                      }
+                      validationState={this.state.mobilityAidCapacityError ? 'error' : null}
                     >
-                      <ControlLabel>
+                      <Form.Label>
                         Mobility Aid Capacity <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <FormInputControl
                         type="number"
                         defaultValue={this.state.mobilityAidCapacity}
                         updateState={this.updateState}
                       />
-                      <HelpBlock>
-                        {this.state.mobilityAidCapacityError}
-                      </HelpBlock>
+                      <HelpBlock>{this.state.mobilityAidCapacityError}</HelpBlock>
                     </FormGroup>
                   </Col>
                 </Row>

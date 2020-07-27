@@ -1,22 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from "react-bootstrap";
-import { Form, FormGroup, HelpBlock, ControlLabel } from "react-bootstrap";
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
-import * as Api from "../../api";
+import * as Api from '../../api';
 
-import DateControl from "../../components/DateControl.jsx";
-import EditDialog from "../../components/EditDialog.jsx";
-import DropdownControl from "../../components/DropdownControl.jsx";
-import Spinner from "../../components/Spinner.jsx";
+import DateControl from '../../components/DateControl.jsx';
+import EditDialog from '../../components/EditDialog.jsx';
+import DropdownControl from '../../components/DropdownControl.jsx';
+import Spinner from '../../components/Spinner.jsx';
 
-import { isValidDate, toZuluTime } from "../../utils/date";
-import { isBlank, notBlank } from "../../utils/string";
+import { isValidDate, toZuluTime } from '../../utils/date';
+import { isBlank, notBlank } from '../../utils/string';
 
 class UserRoleAddDialog extends React.Component {
   static propTypes = {
@@ -30,12 +30,12 @@ class UserRoleAddDialog extends React.Component {
     loading: false,
 
     roleId: 0,
-    effectiveDate: "",
-    expiryDate: "",
+    effectiveDate: '',
+    expiryDate: '',
 
-    roleIdError: "",
-    effectiveDateError: "",
-    expiryDateError: "",
+    roleIdError: '',
+    effectiveDateError: '',
+    expiryDateError: '',
   };
 
   componentDidMount() {
@@ -72,23 +72,20 @@ class UserRoleAddDialog extends React.Component {
 
     var valid = true;
     if (!this.state.roleId) {
-      this.setState({ roleIdError: "Role is required" });
+      this.setState({ roleIdError: 'Role is required' });
       valid = false;
     }
 
     if (isBlank(this.state.effectiveDate)) {
-      this.setState({ effectiveDateError: "Effective date is required" });
+      this.setState({ effectiveDateError: 'Effective date is required' });
       valid = false;
     } else if (!isValidDate(this.state.effectiveDate)) {
-      this.setState({ effectiveDateError: "Effective date not valid" });
+      this.setState({ effectiveDateError: 'Effective date not valid' });
       valid = false;
     }
 
-    if (
-      notBlank(this.state.expiryDate) &&
-      !isValidDate(this.state.expiryDate)
-    ) {
-      this.setState({ expiryDateError: "Expiry date not valid" });
+    if (notBlank(this.state.expiryDate) && !isValidDate(this.state.expiryDate)) {
+      this.setState({ expiryDateError: 'Expiry date not valid' });
       valid = false;
     }
 
@@ -106,13 +103,13 @@ class UserRoleAddDialog extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <Spinner />
         </div>
       );
     }
 
-    var roles = _.sortBy(this.props.roles, "name");
+    var roles = _.sortBy(this.props.roles, 'name');
 
     return (
       <EditDialog
@@ -128,13 +125,10 @@ class UserRoleAddDialog extends React.Component {
           <Grid fluid>
             <Row>
               <Col md={4}>
-                <FormGroup
-                  controlId="roleId"
-                  validationState={this.state.roleIdError ? "error" : null}
-                >
-                  <ControlLabel>
+                <FormGroup controlId="roleId" validationState={this.state.roleIdError ? 'error' : null}>
+                  <Form.Label>
                     Role <sup>*</sup>
-                  </ControlLabel>
+                  </Form.Label>
                   <DropdownControl
                     id="roleId"
                     placeholder="None"
@@ -147,15 +141,10 @@ class UserRoleAddDialog extends React.Component {
                 </FormGroup>
               </Col>
               <Col md={4}>
-                <FormGroup
-                  controlId="effectiveDate"
-                  validationState={
-                    this.state.effectiveDateError ? "error" : null
-                  }
-                >
-                  <ControlLabel>
+                <FormGroup controlId="effectiveDate" validationState={this.state.effectiveDateError ? 'error' : null}>
+                  <Form.Label>
                     Effective Date <sup>*</sup>
-                  </ControlLabel>
+                  </Form.Label>
                   <DateControl
                     id="effectiveDate"
                     date={this.state.effectiveDate}
@@ -167,11 +156,8 @@ class UserRoleAddDialog extends React.Component {
                 </FormGroup>
               </Col>
               <Col md={4}>
-                <FormGroup
-                  controlId="expiryDate"
-                  validationState={this.state.expiryDateError ? "error" : null}
-                >
-                  <ControlLabel>Expiry Date</ControlLabel>
+                <FormGroup controlId="expiryDate" validationState={this.state.expiryDateError ? 'error' : null}>
+                  <Form.Label>Expiry Date</Form.Label>
                   <DateControl
                     id="expiryDate"
                     date={this.state.expiryDate}

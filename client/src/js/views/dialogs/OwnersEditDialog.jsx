@@ -1,22 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Grid, Row, Col } from "react-bootstrap";
-import { Form, FormGroup, HelpBlock, ControlLabel } from "react-bootstrap";
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 
-import _ from "lodash";
+import _ from 'lodash';
 
-import * as Api from "../../api";
-import * as Constant from "../../constants";
+import * as Api from '../../api';
+import * as Constant from '../../constants';
 
-import DropdownControl from "../../components/DropdownControl.jsx";
-import EditDialog from "../../components/EditDialog.jsx";
-import FormInputControl from "../../components/FormInputControl.jsx";
-import Spinner from "../../components/Spinner.jsx";
+import DropdownControl from '../../components/DropdownControl.jsx';
+import EditDialog from '../../components/EditDialog.jsx';
+import FormInputControl from '../../components/FormInputControl.jsx';
+import Spinner from '../../components/Spinner.jsx';
 
-import { isBlank } from "../../utils/string";
+import { isBlank } from '../../utils/string';
 
 class OwnersEditDialog extends React.Component {
   static propTypes = {
@@ -32,7 +32,7 @@ class OwnersEditDialog extends React.Component {
     loading: false,
 
     status: this.props.owner.status || Constant.STATUS_ACTIVE,
-    name: this.props.owner.name || "",
+    name: this.props.owner.name || '',
 
     nameError: false,
   };
@@ -66,7 +66,7 @@ class OwnersEditDialog extends React.Component {
     });
 
     if (isBlank(this.state.name)) {
-      this.setState({ nameError: "Name is required" });
+      this.setState({ nameError: 'Name is required' });
       return false;
     }
 
@@ -77,7 +77,7 @@ class OwnersEditDialog extends React.Component {
     });
     // Make sure it isn't this owner
     if (owner && owner.id !== this.props.owner.id) {
-      this.setState({ nameError: "This owner already exists in the system" });
+      this.setState({ nameError: 'This owner already exists in the system' });
       return false;
     }
 
@@ -97,7 +97,7 @@ class OwnersEditDialog extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <Spinner />
         </div>
       );
@@ -119,26 +119,20 @@ class OwnersEditDialog extends React.Component {
                 <Row>
                   <Col md={3}>
                     <FormGroup controlId="status">
-                      <ControlLabel>Status</ControlLabel>
+                      <Form.Label>Status</Form.Label>
                       <DropdownControl
                         id="status"
                         title={this.state.status}
                         updateState={this.updateState}
-                        items={[
-                          Constant.STATUS_ACTIVE,
-                          Constant.STATUS_ARCHIVED,
-                        ]}
+                        items={[Constant.STATUS_ACTIVE, Constant.STATUS_ARCHIVED]}
                       />
                     </FormGroup>
                   </Col>
                   <Col md={9}>
-                    <FormGroup
-                      controlId="name"
-                      validationState={this.state.nameError ? "error" : null}
-                    >
-                      <ControlLabel>
+                    <FormGroup controlId="name" validationState={this.state.nameError ? 'error' : null}>
+                      <Form.Label>
                         Name <sup>*</sup>
-                      </ControlLabel>
+                      </Form.Label>
                       <FormInputControl
                         type="text"
                         defaultValue={this.state.name}

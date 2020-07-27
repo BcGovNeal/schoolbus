@@ -1,38 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import EditDialog from "../../components/EditDialog.jsx";
-import FormInputControl from "../../components/FormInputControl.jsx";
-import Spinner from "../../components/Spinner.jsx";
-import {
-  Form,
-  FormGroup,
-  Grid,
-  Well,
-  Row,
-  Col,
-  ControlLabel,
-  HelpBlock,
-} from "react-bootstrap";
-import {
-  Editor,
-  EditorState,
-  ContentState,
-  RichUtils,
-  convertFromHTML,
-} from "draft-js";
-import {
-  registerCopySource,
-  handleDraftEditorPastedText,
-} from "draftjs-conductor"; //copy-pasted between Draft.js editor
-import { convertToHTML } from "draft-convert";
-import { formatDateTime } from "../../utils/date";
-import { isBlank } from "../../utils/string";
+import EditDialog from '../../components/EditDialog.jsx';
+import FormInputControl from '../../components/FormInputControl.jsx';
+import Spinner from '../../components/Spinner.jsx';
+import { Form, FormGroup, Grid, Well, Row, Col, HelpBlock } from 'react-bootstrap';
+import { Editor, EditorState, ContentState, RichUtils, convertFromHTML } from 'draft-js';
+import { registerCopySource, handleDraftEditorPastedText } from 'draftjs-conductor'; //copy-pasted between Draft.js editor
+import { convertToHTML } from 'draft-convert';
+import { formatDateTime } from '../../utils/date';
+import { isBlank } from '../../utils/string';
 
-import * as Constant from "../../constants";
-import * as Api from "../../api";
-import _ from "lodash";
+import * as Constant from '../../constants';
+import * as Api from '../../api';
+import _ from 'lodash';
 
 class SchoolBusesEmailDialog extends React.Component {
   static propTypes = {
@@ -54,14 +36,11 @@ class SchoolBusesEmailDialog extends React.Component {
 
     editorState: EditorState.createEmpty(),
     schoolBuses: this.props.schoolBuses ? this.props.schoolBuses : null,
-    mailFrom:
-      this.props.currentUser && this.props.currentUser.email
-        ? this.props.currentUser.email
-        : "",
-    mailTo: "",
-    mailCc: "",
-    subject: "",
-    body: "",
+    mailFrom: this.props.currentUser && this.props.currentUser.email ? this.props.currentUser.email : '',
+    mailTo: '',
+    mailCc: '',
+    subject: '',
+    body: '',
 
     mailToError: false,
     mailCcError: false,
@@ -86,12 +65,9 @@ class SchoolBusesEmailDialog extends React.Component {
 
     //if user retry sending email
     if (!_.isEmpty(this.props.email)) {
-      var email = _.omit(this.props.email, ["errorInfo", "mailSent"]);
+      var email = _.omit(this.props.email, ['errorInfo', 'mailSent']);
       const blocksFromHTML = convertFromHTML(email.body);
-      const state = ContentState.createFromBlockArray(
-        blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap
-      );
+      const state = ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap);
       return this.setState({
         mailTo: email.mailTo,
         mailCc: email.mailCc,
@@ -125,15 +101,15 @@ class SchoolBusesEmailDialog extends React.Component {
       //get primary contacts
       _.map(primaryContactIds, (id) => {
         Api.getContact(id).then((response) => {
-          if (response.emailAddress !== null && response.emailAddress !== "") {
+          if (response.emailAddress !== null && response.emailAddress !== '') {
             emailAddresses.push(response.emailAddress);
           }
           count++;
           if (count === primaryContactIds.length) {
             this.setState(
               {
-                subject: "Request School Bus Inspection ",
-                mailTo: emailAddresses.join("; "),
+                subject: 'Request School Bus Inspection ',
+                mailTo: emailAddresses.join('; '),
                 loadEmail: false,
               },
               () => {
@@ -148,7 +124,7 @@ class SchoolBusesEmailDialog extends React.Component {
     } else {
       this.setState(
         {
-          subject: "Request School Bus Inspection ",
+          subject: 'Request School Bus Inspection ',
           loadEmail: false,
         },
         () => {
@@ -205,14 +181,13 @@ class SchoolBusesEmailDialog extends React.Component {
     if (!_.isEmpty(inspections)) {
       var schoolBuses = this.state.schoolBuses;
       var lastInspectionDate = []; //last inspection date of a school bus
-      var bus = _.find(inspections, "schoolBus");
+      var bus = _.find(inspections, 'schoolBus');
       var busId = bus.schoolBus.id;
       _.map(inspections, (inspection) => {
         lastInspectionDate.push(inspection.inspectionDate);
       });
       lastInspectionDate.sort();
-      schoolBuses[busId].lastInspectionDate =
-        lastInspectionDate[lastInspectionDate.length - 1];
+      schoolBuses[busId].lastInspectionDate = lastInspectionDate[lastInspectionDate.length - 1];
       this.setState({
         schoolBuses: schoolBuses,
       });
@@ -225,52 +200,30 @@ class SchoolBusesEmailDialog extends React.Component {
       _.reverse(schoolBuses);
     }
 
-    var text = "<b><u>School Bus List:</u></b>";
+    var text = '<b><u>School Bus List:</u></b>';
     var body =
-      "<p>According to CVSE records, the following school bus(es) are due or overdue for a re-inspection or annual mechanical school bus compliance inspection.<br></p>";
-    body +=
-      "<p>Please review the following list and advise if there are any changes required.<br>";
-    body +=
-      "Please contact me so that we may arrange a time and location for the inspection(s) to take place.<br></p>";
-    body += "<p>Regards,<br>";
-    body += this.props.currentUser.fullName + "<br></p>";
-    body += "<p>" + text + "<br></p>";
+      '<p>According to CVSE records, the following school bus(es) are due or overdue for a re-inspection or annual mechanical school bus compliance inspection.<br></p>';
+    body += '<p>Please review the following list and advise if there are any changes required.<br>';
+    body += 'Please contact me so that we may arrange a time and location for the inspection(s) to take place.<br></p>';
+    body += '<p>Regards,<br>';
+    body += this.props.currentUser.fullName + '<br></p>';
+    body += '<p>' + text + '<br></p>';
     _.map(schoolBuses, (bus) => {
-      body += "<p>*Owner: " + bus.ownerName + "–<br>";
+      body += '<p>*Owner: ' + bus.ownerName + '–<br>';
       body +=
-        "Last Inspection Date: " +
-        (bus.lastInspectionDate
-          ? formatDateTime(
-              bus.lastInspectionDate,
-              Constant.DATE_SHORT_MONTH_DAY_YEAR
-            )
-          : "null");
-      body +=
-        "<ul><li>Registration: " +
-        (bus.icbcRegistrationNumber ? bus.icbcRegistrationNumber : "null") +
-        "</li>";
-      body +=
-        "<li>Plate Number: " +
-        (bus.licencePlateNumber ? bus.licencePlateNumber : "null") +
-        "</li>";
-      body +=
-        "<li>Unit Number: " +
-        (bus.unitNumber ? bus.unitNumber : "null") +
-        "</li>";
-      body +=
-        "<li>Permit: " +
-        (bus.permitNumber ? bus.permitNumber : "null") +
-        "</li>";
+        'Last Inspection Date: ' +
+        (bus.lastInspectionDate ? formatDateTime(bus.lastInspectionDate, Constant.DATE_SHORT_MONTH_DAY_YEAR) : 'null');
+      body += '<ul><li>Registration: ' + (bus.icbcRegistrationNumber ? bus.icbcRegistrationNumber : 'null') + '</li>';
+      body += '<li>Plate Number: ' + (bus.licencePlateNumber ? bus.licencePlateNumber : 'null') + '</li>';
+      body += '<li>Unit Number: ' + (bus.unitNumber ? bus.unitNumber : 'null') + '</li>';
+      body += '<li>Permit: ' + (bus.permitNumber ? bus.permitNumber : 'null') + '</li>';
       return (body +=
-        "<li>Home Terminal: " +
-        (bus.homeTerminalCityPostal ? bus.homeTerminalCityPostal : "null") +
-        "</li></ul><br></p>");
+        '<li>Home Terminal: ' +
+        (bus.homeTerminalCityPostal ? bus.homeTerminalCityPostal : 'null') +
+        '</li></ul><br></p>');
     });
     const blocksFromHTML = convertFromHTML(body);
-    const state = ContentState.createFromBlockArray(
-      blocksFromHTML.contentBlocks,
-      blocksFromHTML.entityMap
-    );
+    const state = ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap);
     this.setState({
       editorState: EditorState.createWithContent(state),
       loadData: false,
@@ -286,15 +239,12 @@ class SchoolBusesEmailDialog extends React.Component {
   };
 
   handleKeyCommand = (command) => {
-    const newState = RichUtils.handleKeyCommand(
-      this.state.editorState,
-      command
-    );
+    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
     if (newState) {
       this.onChange(newState);
-      return "handled";
+      return 'handled';
     }
-    return "not-handled";
+    return 'not-handled';
   };
 
   handlePastedText = (text, html) => {
@@ -308,19 +258,15 @@ class SchoolBusesEmailDialog extends React.Component {
   };
 
   _onBoldClick = () => {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
   };
 
   _onItalicClick = () => {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
-    );
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
   };
 
   _onUnderlineClick = () => {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.state.editorState, "UNDERLINE")
-    );
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
   };
 
   onSave = () => {
@@ -328,8 +274,8 @@ class SchoolBusesEmailDialog extends React.Component {
     content = convertToHTML({
       blockToHTML: (block) => {
         switch (block.type) {
-          case "unstyled":
-            if (block.text === " " || block.text === "") {
+          case 'unstyled':
+            if (block.text === ' ' || block.text === '') {
               return <br />;
             }
             break;
@@ -366,22 +312,21 @@ class SchoolBusesEmailDialog extends React.Component {
     });
 
     if (isBlank(this.state.mailTo)) {
-      this.setState({ mailToError: "Email address is required." });
+      this.setState({ mailToError: 'Email address is required.' });
       isValid = false;
     } else {
       var mailTos = this.state.mailTo.split(/[;, ]/);
       var invalidMailTo = [];
       //remove empty string and find out invalid email
       for (var a in mailTos) {
-        if (mailTos[a] !== "" && !re.test(mailTos[a])) {
+        if (mailTos[a] !== '' && !re.test(mailTos[a])) {
           invalidMailTo.push(mailTos[a]);
         }
       }
       //check if invalid email exist
       if (invalidMailTo.length > 0) {
         this.setState({
-          mailToError:
-            "Email address in invalid format: " + invalidMailTo.join(", "),
+          mailToError: 'Email address in invalid format: ' + invalidMailTo.join(', '),
         });
         isValid = false;
       }
@@ -392,22 +337,21 @@ class SchoolBusesEmailDialog extends React.Component {
       var invalidMailCc = [];
       //remove empty string and find out invalid email
       for (var b in mailCcs) {
-        if (mailCcs[b] !== "" && !re.test(mailCcs[b])) {
+        if (mailCcs[b] !== '' && !re.test(mailCcs[b])) {
           invalidMailCc.push(mailCcs[b]);
         }
       }
       //check if invalid email exist
       if (invalidMailCc.length > 0) {
         this.setState({
-          mailCcError:
-            "Email address in invalid format: " + invalidMailCc.join(", "),
+          mailCcError: 'Email address in invalid format: ' + invalidMailCc.join(', '),
         });
         isValid = false;
       }
     }
 
     if (isBlank(this.state.subject)) {
-      this.setState({ subjectError: "Email subject is required." });
+      this.setState({ subjectError: 'Email subject is required.' });
       isValid = false;
     }
 
@@ -424,12 +368,12 @@ class SchoolBusesEmailDialog extends React.Component {
           onSave={this.onSave}
           onClose={this.props.onClose}
           show={this.props.show}
-          saveText={"Send"}
+          saveText={'Send'}
         >
           {(() => {
             if (this.state.loadData) {
               return (
-                <div style={{ textAlign: "center" }}>
+                <div style={{ textAlign: 'center' }}>
                   <Spinner />
                 </div>
               );
@@ -441,19 +385,11 @@ class SchoolBusesEmailDialog extends React.Component {
                   <Well>
                     <Row>
                       <Col md={12}>
-                        <FormGroup
-                          controlId="mailTo"
-                          validationState={
-                            this.state.mailToError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="mailTo" validationState={this.state.mailToError ? 'error' : null}>
+                          <Form.Label>
                             Email <sup>*</sup>
-                          </ControlLabel>
-                          <span style={{ fontSize: "12px" }}>
-                            {" "}
-                            (Use ; to separate addresses)
-                          </span>
+                          </Form.Label>
+                          <span style={{ fontSize: '12px' }}> (Use ; to separate addresses)</span>
                           <FormInputControl
                             type="text"
                             defaultValue={this.state.mailTo}
@@ -466,17 +402,9 @@ class SchoolBusesEmailDialog extends React.Component {
                     </Row>
                     <Row>
                       <Col md={12}>
-                        <FormGroup
-                          controlId="mailCc"
-                          validationState={
-                            this.state.mailCcError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>CC </ControlLabel>
-                          <span style={{ fontSize: "12px" }}>
-                            {" "}
-                            (Use ; to separate addresses)
-                          </span>
+                        <FormGroup controlId="mailCc" validationState={this.state.mailCcError ? 'error' : null}>
+                          <Form.Label>CC </Form.Label>
+                          <span style={{ fontSize: '12px' }}> (Use ; to separate addresses)</span>
                           <FormInputControl
                             type="text"
                             defaultValue={this.state.mailCc}
@@ -489,15 +417,10 @@ class SchoolBusesEmailDialog extends React.Component {
                     </Row>
                     <Row>
                       <Col md={12}>
-                        <FormGroup
-                          controlId="subject"
-                          validationState={
-                            this.state.subjectError ? "error" : null
-                          }
-                        >
-                          <ControlLabel>
+                        <FormGroup controlId="subject" validationState={this.state.subjectError ? 'error' : null}>
+                          <Form.Label>
                             Subject <sup>*</sup>
-                          </ControlLabel>
+                          </Form.Label>
                           <FormInputControl
                             type="text"
                             defaultValue={this.state.subject}
@@ -511,7 +434,7 @@ class SchoolBusesEmailDialog extends React.Component {
                     <Row>
                       <Col md={12}>
                         <div>
-                          <ControlLabel>Body </ControlLabel>
+                          <Form.Label>Body </Form.Label>
                           <Row>
                             <div className="btn-toolbar" role="toolbar">
                               <div className="btn-group" role="group">
