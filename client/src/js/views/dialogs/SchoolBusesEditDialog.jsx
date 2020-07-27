@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Button, Glyphicon } from 'react-bootstrap';
-import { Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormControl, FormGroup } from 'react-bootstrap';
 
 import _ from 'lodash';
 import Promise from 'bluebird';
@@ -536,7 +536,7 @@ class SchoolBusesEditDialog extends React.Component {
                         selectedId={this.state.schoolDistrictId}
                         updateState={this.updateState}
                       />
-                      <HelpBlock>{this.state.schoolDistrictIdError}</HelpBlock>
+                      <Form.Text>{this.state.schoolDistrictIdError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={2}>
@@ -598,7 +598,7 @@ class SchoolBusesEditDialog extends React.Component {
                         defaultValue={this.state.schoolBusSeatingCapacity}
                         updateState={this.updateState}
                       />
-                      <HelpBlock>{this.state.schoolBusSeatingCapacityError}</HelpBlock>
+                      <Form.Text>{this.state.schoolBusSeatingCapacityError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={3}>
@@ -614,7 +614,7 @@ class SchoolBusesEditDialog extends React.Component {
                         defaultValue={this.state.mobilityAidCapacity}
                         updateState={this.updateState}
                       />
-                      <HelpBlock>{this.state.mobilityAidCapacityError}</HelpBlock>
+                      <Form.Text>{this.state.mobilityAidCapacityError}</Form.Text>
                     </FormGroup>
                   </Col>
                 </Row>

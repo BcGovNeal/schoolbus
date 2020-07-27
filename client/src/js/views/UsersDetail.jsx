@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { Row, Col } from 'react-bootstrap';
 import { Alert, Badge, Button, Glyphicon, Popover } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import _ from 'lodash';
@@ -424,7 +424,7 @@ class ExpireOverlay extends React.Component {
               placeholder="mm/dd/yyyy"
               title="Expiry Date"
             />
-            <HelpBlock>{this.state.expiryDateError}</HelpBlock>
+            <Form.Text>{this.state.expiryDateError}</Form.Text>
           </FormGroup>
           <Button bsStyle="primary" onClick={this.saveUserRole} className="pull-right">
             Save

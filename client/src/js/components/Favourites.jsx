@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Dropdown, ButtonToolbar, Button } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 import { Col, Glyphicon } from 'react-bootstrap';
 
 import _ from 'lodash';
@@ -93,7 +93,7 @@ class EditFavouritesDialog extends React.Component {
                 this.input = ref;
               }}
             />
-            <HelpBlock>{this.state.nameError}</HelpBlock>
+            <Form.Text>{this.state.nameError}</Form.Text>
           </FormGroup>
           <CheckboxControl id="isDefault" checked={this.state.isDefault} updateState={this.updateState}>
             Default

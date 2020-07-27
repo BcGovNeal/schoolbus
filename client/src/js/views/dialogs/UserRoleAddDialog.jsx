@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Grid, Row, Col } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 
 import _ from 'lodash';
 
@@ -137,7 +137,7 @@ class UserRoleAddDialog extends React.Component {
                     selectedId={this.state.roleId}
                     updateState={this.updateState}
                   />
-                  <HelpBlock>{this.state.roleIdError}</HelpBlock>
+                  <Form.Text>{this.state.roleIdError}</Form.Text>
                 </FormGroup>
               </Col>
               <Col md={4}>
@@ -152,7 +152,7 @@ class UserRoleAddDialog extends React.Component {
                     placeholder="mm/dd/yyyy"
                     title="effective date"
                   />
-                  <HelpBlock>{this.state.effectiveDateError}</HelpBlock>
+                  <Form.Text>{this.state.effectiveDateError}</Form.Text>
                 </FormGroup>
               </Col>
               <Col md={4}>
@@ -165,7 +165,7 @@ class UserRoleAddDialog extends React.Component {
                     placeholder="mm/dd/yyyy"
                     title="expiry date"
                   />
-                  <HelpBlock>{this.state.expiryDateError}</HelpBlock>
+                  <Form.Text>{this.state.expiryDateError}</Form.Text>
                 </FormGroup>
               </Col>
             </Row>

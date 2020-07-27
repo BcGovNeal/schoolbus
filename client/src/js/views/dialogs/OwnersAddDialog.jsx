@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 
 import _ from 'lodash';
 
@@ -88,7 +88,7 @@ class OwnersAddDialog extends React.Component {
                 this.input = ref;
               }}
             />
-            <HelpBlock>{this.state.nameError}</HelpBlock>
+            <Form.Text>{this.state.nameError}</Form.Text>
           </FormGroup>
         </Form>
       </EditDialog>

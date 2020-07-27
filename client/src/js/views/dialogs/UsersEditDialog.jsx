@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Grid, Row, Col } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 
 import _ from 'lodash';
 
@@ -192,7 +192,7 @@ class UsersEditDialog extends React.Component {
                           this.input = ref;
                         }}
                       />
-                      <HelpBlock>{this.state.givenNameError}</HelpBlock>
+                      <Form.Text>{this.state.givenNameError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={4}>
@@ -201,7 +201,7 @@ class UsersEditDialog extends React.Component {
                         Surname <sup>*</sup>
                       </Form.Label>
                       <FormInputControl type="text" defaultValue={this.state.surname} updateState={this.updateState} />
-                      <HelpBlock>{this.state.surnameError}</HelpBlock>
+                      <Form.Text>{this.state.surnameError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={2}>
@@ -210,7 +210,7 @@ class UsersEditDialog extends React.Component {
                         User ID <sup>*</sup>
                       </Form.Label>
                       <FormInputControl type="text" defaultValue={this.state.smUserId} updateState={this.updateState} />
-                      <HelpBlock>{this.state.smUserIdError}</HelpBlock>
+                      <Form.Text>{this.state.smUserIdError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={2}>
@@ -232,7 +232,7 @@ class UsersEditDialog extends React.Component {
                         E-mail <sup>*</sup>
                       </Form.Label>
                       <FormInputControl type="text" defaultValue={this.state.email} updateState={this.updateState} />
-                      <HelpBlock>{this.state.emailError}</HelpBlock>
+                      <Form.Text>{this.state.emailError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={4}>
@@ -248,7 +248,7 @@ class UsersEditDialog extends React.Component {
                         selectedId={this.state.districtId}
                         updateState={this.updateState}
                       />
-                      <HelpBlock>{this.state.districtIdError}</HelpBlock>
+                      <Form.Text>{this.state.districtIdError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={4}>
@@ -267,7 +267,7 @@ class UsersEditDialog extends React.Component {
                         updateState={this.updateState}
                         showMaxItems={2}
                       />
-                      <HelpBlock>{this.state.selectedGroupsIdsError}</HelpBlock>
+                      <Form.Text>{this.state.selectedGroupsIdsError}</Form.Text>
                     </FormGroup>
                   </Col>
                 </Row>

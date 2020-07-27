@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Grid, Row, Col } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 import { Table, Button, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -257,7 +257,7 @@ class RolesDetail extends React.Component {
                               defaultValue={this.state.name}
                               updateState={this.updateState}
                             />
-                            <HelpBlock>{this.state.nameError}</HelpBlock>
+                            <Form.Text>{this.state.nameError}</Form.Text>
                           </FormGroup>
                         </Col>
                         <Col md={9}>
@@ -273,7 +273,7 @@ class RolesDetail extends React.Component {
                               defaultValue={this.state.description}
                               updateState={this.updateState}
                             />
-                            <HelpBlock>{this.state.descriptionError}</HelpBlock>
+                            <Form.Text>{this.state.descriptionError}</Form.Text>
                           </FormGroup>
                         </Col>
                       </Row>

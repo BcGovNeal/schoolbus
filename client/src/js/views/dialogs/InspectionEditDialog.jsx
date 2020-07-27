@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Grid, Row, Col } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 
 import _ from 'lodash';
 import Moment from 'moment';
@@ -286,7 +286,7 @@ class InspectionEditDialog extends React.Component {
                         placeholder="mm/dd/yyyy"
                         title="inspection date"
                       />
-                      <HelpBlock>{this.state.inspectionDateError}</HelpBlock>
+                      <Form.Text>{this.state.inspectionDateError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={5}>
@@ -303,7 +303,7 @@ class InspectionEditDialog extends React.Component {
                         selectedId={this.state.inspectorId}
                         updateState={this.updateState}
                       />
-                      <HelpBlock>{this.state.inspectorIdError}</HelpBlock>
+                      <Form.Text>{this.state.inspectorIdError}</Form.Text>
                     </FormGroup>
                   </Col>
                   <Col md={3}>
@@ -327,7 +327,7 @@ class InspectionEditDialog extends React.Component {
                           Constant.INSPECTION_RESULT_OUT_OF_SERVICE,
                         ]}
                       />
-                      <HelpBlock>{this.state.inspectionResultCodeError}</HelpBlock>
+                      <Form.Text>{this.state.inspectionResultCodeError}</Form.Text>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -345,7 +345,7 @@ class InspectionEditDialog extends React.Component {
                         placeholder="mm/dd/yyyy"
                         title="next inspection date"
                       />
-                      <HelpBlock>{this.state.nextInspectionDateError}</HelpBlock>
+                      <Form.Text>{this.state.nextInspectionDateError}</Form.Text>
                     </FormGroup>
                     <FormGroup controlId="ripInspectionId">
                       <Form.Label>RIP Inspection ID</Form.Label>

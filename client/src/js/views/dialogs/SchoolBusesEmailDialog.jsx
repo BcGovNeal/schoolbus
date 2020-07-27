@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import EditDialog from '../../components/EditDialog.jsx';
 import FormInputControl from '../../components/FormInputControl.jsx';
 import Spinner from '../../components/Spinner.jsx';
-import { Form, FormGroup, Grid, Row, Col, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup, Grid, Row, Col } from 'react-bootstrap';
 import { Editor, EditorState, ContentState, RichUtils, convertFromHTML } from 'draft-js';
 import { registerCopySource, handleDraftEditorPastedText } from 'draftjs-conductor'; //copy-pasted between Draft.js editor
 import { convertToHTML } from 'draft-convert';
@@ -398,7 +398,7 @@ class SchoolBusesEmailDialog extends React.Component {
                             placeholder="example@email.com;"
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.mailToError}</HelpBlock>
+                          <Form.Text>{this.state.mailToError}</Form.Text>
                         </FormGroup>
                       </Col>
                     </Row>
@@ -413,7 +413,7 @@ class SchoolBusesEmailDialog extends React.Component {
                             placeholder="example@email.com;"
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.mailCcError}</HelpBlock>
+                          <Form.Text>{this.state.mailCcError}</Form.Text>
                         </FormGroup>
                       </Col>
                     </Row>
@@ -429,7 +429,7 @@ class SchoolBusesEmailDialog extends React.Component {
                             placeholder="Subject"
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.subjectError}</HelpBlock>
+                          <Form.Text>{this.state.subjectError}</Form.Text>
                         </FormGroup>
                       </Col>
                     </Row>

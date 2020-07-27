@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Grid, Row, Col } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 import * as Constant from '../../constants';
 
 import Well from '../../components/Well';
@@ -306,7 +306,7 @@ class ContactEditDialog extends React.Component {
                             defaultValue={this.state.currentContact.surname}
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.surnameError}</HelpBlock>
+                          <Form.Text>{this.state.surnameError}</Form.Text>
                         </FormGroup>
                       </Col>
                       <Col md={4}>
@@ -352,7 +352,7 @@ class ContactEditDialog extends React.Component {
                             defaultValue={this.state.currentContact.emailAddress}
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.emailError}</HelpBlock>
+                          <Form.Text>{this.state.emailError}</Form.Text>
                         </FormGroup>
                       </Col>
                     </Row>
@@ -371,7 +371,7 @@ class ContactEditDialog extends React.Component {
                             defaultValue={this.state.currentContact.workPhoneNumber}
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.workPhoneError}</HelpBlock>
+                          <Form.Text>{this.state.workPhoneError}</Form.Text>
                         </FormGroup>
                       </Col>
                       <Col md={4}>
@@ -411,7 +411,7 @@ class ContactEditDialog extends React.Component {
                             defaultValue={this.state.currentContact.address1}
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.address1Error}</HelpBlock>
+                          <Form.Text>{this.state.address1Error}</Form.Text>
                         </FormGroup>
                       </Col>
                       <Col md={6}>
@@ -438,7 +438,7 @@ class ContactEditDialog extends React.Component {
                             defaultValue={this.state.currentContact.city}
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.cityError}</HelpBlock>
+                          <Form.Text>{this.state.cityError}</Form.Text>
                         </FormGroup>
                       </Col>
                       <Col md={4}>
@@ -454,7 +454,7 @@ class ContactEditDialog extends React.Component {
                             placeholder="None"
                             blankLine
                           />
-                          <HelpBlock>{this.state.provinceError}</HelpBlock>
+                          <Form.Text>{this.state.provinceError}</Form.Text>
                         </FormGroup>
                       </Col>
                       <Col md={4}>
@@ -468,7 +468,7 @@ class ContactEditDialog extends React.Component {
                             defaultValue={this.state.currentContact.postalCode}
                             updateState={this.updateState}
                           />
-                          <HelpBlock>{this.state.postalCodeError}</HelpBlock>
+                          <Form.Text>{this.state.postalCodeError}</Form.Text>
                         </FormGroup>
                       </Col>
                     </Row>
