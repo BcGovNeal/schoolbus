@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Row, Col } from 'react-bootstrap';
-import { Alert, Label, Button, ButtonGroup, Glyphicon, Form } from 'react-bootstrap';
+import { Alert, Badge, Button, ButtonGroup, Glyphicon, Form } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import _ from 'lodash';
@@ -370,10 +370,10 @@ class SchoolBusesDetail extends React.Component {
         <div>
           <Row id="school-buses-top">
             <Col md={10}>
-              <Label bsStyle={bus.isActive ? 'success' : 'danger'}>
+              <Badge bsStyle={bus.isActive ? 'success' : 'danger'}>
                 {bus.isActive ? 'Verified Active' : bus.status}
-              </Label>
-              <Label className={bus.isOutOfProvince ? '' : 'hide'}>Out of Province</Label>
+              </Badge>
+              <Badge className={bus.isOutOfProvince ? '' : 'hide'}>Out of Province</Badge>
               {bus.nextInspectionDate && (
                 <span
                   className={`label label-${inspectionStyle}`}

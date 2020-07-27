@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Row, Col } from 'react-bootstrap';
-import { Alert, Label, Button, Glyphicon, Popover } from 'react-bootstrap';
+import { Alert, Badge, Button, Glyphicon, Popover } from 'react-bootstrap';
 import { Form, FormGroup, HelpBlock } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -171,7 +171,7 @@ class UsersDetail extends React.Component {
         <div>
           <Row id="users-top">
             <Col md={10}>
-              <Label bsStyle={user.active ? 'success' : 'danger'}>{user.active ? 'Verified Active' : 'Inactive'}</Label>
+              <Badge bsStyle={user.active ? 'success' : 'danger'}>{user.active ? 'Verified Active' : 'Inactive'}</Badge>
             </Col>
             <Col md={2}>
               <div className="pull-right">

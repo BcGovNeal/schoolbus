@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Row, Col } from 'react-bootstrap';
-import { Alert, Label, Button, ButtonGroup, Glyphicon, Badge } from 'react-bootstrap';
+import { Alert, Badge, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import _ from 'lodash';
@@ -296,9 +296,9 @@ class OwnersDetail extends React.Component {
         <div>
           <Row id="owners-top">
             <Col md={10}>
-              <Label bsStyle={owner.isActive ? 'success' : 'danger'}>
+              <Badge bsStyle={owner.isActive ? 'success' : 'danger'}>
                 {owner.isActive ? 'Verified Active' : owner.status}
-              </Label>
+              </Badge>
               {owner.nextInspectionDate && (
                 <span
                   className={`label label-${inspectionStyle}`}
