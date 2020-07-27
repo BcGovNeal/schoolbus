@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Dropdown, FormControl, MenuItem } from 'react-bootstrap';
+import { Dropdown, FormControl } from 'react-bootstrap';
 
 import Well from './Well';
 import RootCloseMenu from './RootCloseMenu.jsx';
@@ -149,15 +149,15 @@ class FilterDropdown extends React.Component {
           {items.length > 0 && (
             <ul>
               {this.props.blankLine && this.state.filterTerm.length === 0 && (
-                <MenuItem key={0} eventKey={0} onSelect={this.itemSelected}>
+                <Dropdown.Item key={0} eventKey={0} onSelect={this.itemSelected}>
                   {typeof this.props.blankLine === 'string' ? this.props.blankLine : ' '}
-                </MenuItem>
+                </Dropdown.Item>
               )}
               {_.map(items, (item) => {
                 return (
-                  <MenuItem key={item.id} eventKey={item.id} onSelect={this.itemSelected}>
+                  <Dropdown.Item key={item.id} eventKey={item.id} onSelect={this.itemSelected}>
                     {item[this.state.fieldName]}
-                  </MenuItem>
+                  </Dropdown.Item>
                 );
               })}
             </ul>
