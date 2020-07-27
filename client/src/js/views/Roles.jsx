@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { PageHeader, Alert, Row, Col } from 'react-bootstrap';
+import { Alert, Row, Col } from 'react-bootstrap';
 import { ButtonToolbar, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -14,6 +14,7 @@ import * as Api from '../api';
 import * as Constant from '../constants';
 import store from '../store';
 
+import PageHeader from '../components/PageHeader';
 import Well from '../components/Well';
 import DeleteButton from '../components/DeleteButton.jsx';
 import EditButton from '../components/EditButton.jsx';

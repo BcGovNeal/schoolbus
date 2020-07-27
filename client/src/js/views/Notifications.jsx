@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { PageHeader } from "react-bootstrap";
-import { Button, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 
-import Unimplemented from "../components/Unimplemented.jsx";
+import PageHeader from '../components/PageHeader';
+import Unimplemented from '../components/Unimplemented.jsx';
 
 class Notifications extends React.Component {
   static propTypes = {

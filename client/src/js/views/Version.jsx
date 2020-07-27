@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { PageHeader, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 
 import preval from 'preval.macro';
@@ -12,6 +12,7 @@ import Well from '../components/Well';
 import * as Api from '../api';
 import * as Constant from '../constants';
 
+import PageHeader from '../components/PageHeader';
 import ColDisplay from '../components/ColDisplay.jsx';
 import Spinner from '../components/Spinner.jsx';
 import Unimplemented from '../components/Unimplemented.jsx';

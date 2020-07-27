@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { PageHeader, Table } from "react-bootstrap";
+import { Table } from 'react-bootstrap';
+
+import PageHeader from './PageHeader';
 
 class BodyDescription extends React.Component {
   render() {
@@ -18,19 +20,17 @@ class BodyDescription extends React.Component {
             <tr>
               <td>a.</td>
               <td className="desc">
-                Means a bus that is identified with the colour yellow and black
-                and on the date of its manufacture conformed to the safety
-                standards under the{" "}
+                Means a bus that is identified with the colour yellow and black and on the date of its manufacture
+                conformed to the safety standards under the{' '}
                 <a
                   href="http://laws-lois.justice.gc.ca/eng/acts/M-10.01/index.html"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <i>Motor Vehicle Safety Act</i>
-                </a>{" "}
-                (Canada) and the standards made by the Canadian Standards
-                Association numbered CSA D250, "School Buses" that were
-                applicable to school buses on that date.
+                </a>{' '}
+                (Canada) and the standards made by the Canadian Standards Association numbered CSA D250, "School Buses"
+                that were applicable to school buses on that date.
               </td>
             </tr>
             <tr>
@@ -41,8 +41,8 @@ class BodyDescription extends React.Component {
             <tr>
               <td>b.</td>
               <td className="desc">
-                Means a motor vehicle designed to carry more than 10 persons,
-                but does not include a yellow and black or coach bus.
+                Means a motor vehicle designed to carry more than 10 persons, but does not include a yellow and black or
+                coach bus.
               </td>
             </tr>
             <tr>
@@ -53,8 +53,7 @@ class BodyDescription extends React.Component {
             <tr>
               <td>c.</td>
               <td className="desc">
-                Means a motor vehicle designed to provide intercity, commuter or
-                charter service.
+                Means a motor vehicle designed to provide intercity, commuter or charter service.
               </td>
             </tr>
             <tr>
@@ -65,8 +64,8 @@ class BodyDescription extends React.Component {
             <tr>
               <td>d.</td>
               <td className="desc">
-                Means a motor vehicle designed to carry persons that is designed
-                or modified for transportation of non-ambulatory persons.
+                Means a motor vehicle designed to carry persons that is designed or modified for transportation of
+                non-ambulatory persons.
               </td>
             </tr>
             <tr>
@@ -77,9 +76,8 @@ class BodyDescription extends React.Component {
             <tr>
               <td>e.</td>
               <td className="desc">
-                Means a vehicle that is designed to carry more than 10 persons,
-                but the body style may not be identifiable as a bus, such as a
-                15 passenger van.
+                Means a vehicle that is designed to carry more than 10 persons, but the body style may not be
+                identifiable as a bus, such as a 15 passenger van.
               </td>
             </tr>
             <tr>
@@ -90,8 +88,8 @@ class BodyDescription extends React.Component {
             <tr>
               <td>f.</td>
               <td className="desc">
-                Means a vehicle that requires a school bus permit and is not
-                identified in the above listed body descriptions.
+                Means a vehicle that requires a school bus permit and is not identified in the above listed body
+                descriptions.
               </td>
             </tr>
           </tbody>

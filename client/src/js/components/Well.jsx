@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Well = ({ bsSize }) => {
-  return <div className="clearfix well"></div>;
+const Well = ({ bsSize, children }) => {
+  return <div className="clearfix well">{children}</div>;
 };
 
 export default Well;
