@@ -90,7 +90,7 @@ const App = () => {
           <ProgressBar
             variant={apiError === null ? 'info' : 'danger'}
             striped
-            active={apiError === null}
+            animated={apiError === null}
             now={loadProgress}
             min={0}
             max={100}
